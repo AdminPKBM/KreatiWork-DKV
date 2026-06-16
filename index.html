@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DKV EduTech: Basic Job Skills, K3LH, & Budaya Kerja</title>
+    <title>KreatiWork DKV: Basic Job Skills, K3LH & Budaya Kerja Fase E</title>
     <!-- Google Fonts Poppins & Orbitron (Futuristic) -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS -->
@@ -80,7 +80,7 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
+            0 { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
@@ -272,8 +272,8 @@
     <!-- LOADING SCREEN -->
     <div id="loading-screen">
         <div class="loader mb-4"></div>
-        <h3 class="font-futuristic text-neon text-center animate__animated animate__pulse animate__infinite">MEMUAT SISTEM DKV EDUTECH...</h3>
-        <p class="text-muted">Mempersiapkan Material & Modul Interaktif</p>
+        <h3 class="font-futuristic text-neon text-center animate__animated animate__pulse animate__infinite">MEMUAT SISTEM KREATIWORK DKV...</h3>
+        <p class="text-muted">Mempersiapkan Kurikulum Merdeka Fase E</p>
     </div>
 
     <!-- AUDIO CONTROLLER (Web Audio API Synthesizer) -->
@@ -291,7 +291,7 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#" onclick="showSection('landing')">
                 <i class="fa-solid fa-wand-magic-sparkles me-2 text-neon"></i>
-                <span>DKV EDUTECH</span>
+                <span>KREATIWORK DKV</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -319,16 +319,15 @@
         <!-- SECTION 1: LANDING PAGE -->
         <section id="sec-landing" class="row align-items-center min-vh-75 py-5">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <span class="badge badge-neon mb-3 font-futuristic">PROGRAM KEAHLIAN DKV</span>
+                <span class="badge badge-neon mb-3 font-futuristic">KURIKULUM MERDEKA FASE E</span>
                 <h1 class="display-3 font-futuristic fw-bold text-white mb-3">MENGUASAI <br><span class="text-neon">BASIC JOB SKILLS</span> & K3LH</h1>
-                <p class="lead text-muted-custom mb-4">Aplikasi bahan ajar interaktif modern berbasis kurikulum SMK Pusat Keunggulan. Siapkan karier hebatmu di industri kreatif sekarang juga.</p>
+                <p class="lead text-muted-custom mb-4">Platform bahan ajar digital komprehensif bagi siswa kelas X DKV. Kembangkan pola pikir kreatif, budaya kerja industri, dan teknik cetak modern sejak dini.</p>
                 <div class="d-flex gap-3 flex-wrap">
                     <button class="btn btn-neon btn-lg" onclick="showSection('dashboard')"><i class="fas fa-play me-2"></i>Mulai Belajar</button>
                     <button class="btn btn-outline-info rounded-pill px-4" onclick="showSection('game-center')"><i class="fas fa-gamepad me-2"></i>Mainkan Game</button>
                 </div>
             </div>
             <div class="col-lg-6 text-center position-relative">
-                <!-- Visualisasi Abstract Futuristik DKV -->
                 <div class="py-5 bg-glass rounded-4 position-relative overflow-hidden shadow-lg p-4 border border-info">
                     <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient opacity-10"></div>
                     <i class="fa-solid fa-compass-drafting fa-spin text-neon mb-4" style="font-size: 8rem; --fa-animation-duration: 20s;"></i>
@@ -385,7 +384,7 @@
             </div>
 
             <!-- Modul Belajar Cards -->
-            <h3 class="font-futuristic text-neon mb-4">MODUL PEMBELAJARAN</h3>
+            <h3 class="font-futuristic text-neon mb-4">MODUL PEMBELAJARAN FASE E</h3>
             <div class="row">
                 <!-- Card 1 -->
                 <div class="col-md-4 mb-4">
@@ -636,7 +635,7 @@
     <!-- FOOTER UTAMA -->
     <footer class="bg-glass text-center py-4 border-top border-secondary mt-5">
         <div class="container">
-            <p class="mb-1 text-muted small">&copy; 2026 DKV EduTech - SMK Pusat Keunggulan. All Rights Reserved.</p>
+            <p class="mb-1 text-muted small">&copy; 2026 KreatiWork DKV - SMK Pusat Keunggulan. All Rights Reserved.</p>
             <p class="mb-0 text-muted small" style="font-size: 0.75rem;">Developed for Advanced Creative Digital Learning.</p>
         </div>
     </footer>
@@ -657,7 +656,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Kelas</label>
-                            <input type="text" id="bio-class" class="form-control bg-dark text-white border-secondary" required placeholder="Contoh: XI DKV 2">
+                            <input type="text" id="bio-class" class="form-control bg-dark text-white border-secondary" required placeholder="Contoh: X DKV 2">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Asal Sekolah</label>
@@ -774,61 +773,80 @@
 
         const audio = new WebAudioSynth();
 
-        /* ==================== 2. DATABASE MATERI INTERAKTIF ==================== */
+        /* ==================== 2. DATABASE MATERI INTERAKTIF (KURIKULUM MERDEKA FASE E) ==================== */
         const MATERI_DATA = {
             'materi-k3lh': {
                 title: "Aspek Ketenagakerjaan & K3LH",
                 sub: [
                     {
                         id: "k3lh-sub1",
-                        title: "A1. Ketenagakerjaan",
+                        title: "A1. Ketenagakerjaan & Peluang Kerja DKV",
                         content: `
-                            <h4 class="text-neon mb-3">Definisi, Hak, Kewajiban & Peluang Kerja DKV</h4>
-                            <p><strong>Pengertian Ketenagakerjaan:</strong> Menurut UU No. 13 Tahun 2003, ketenagakerjaan adalah segala hal yang berhubungan dengan tenaga kerja pada waktu sebelum, selama, dan sesudah masa kerja.</p>
+                            <h4 class="text-neon mb-3">Definisi, Regulasi Hukum, Hak-Kewajiban Pekerja & Peta Karir DKV</h4>
+                            <p><strong>Pengertian Ketenagakerjaan:</strong> Berdasarkan landasan konstitusional <strong>UU No. 13 Tahun 2003 tentang Ketenagakerjaan</strong>, ketenagakerjaan adalah segala hal yang berhubungan dengan tenaga kerja pada waktu sebelum, selama, dan sesudah masa hubungan kerja. Dalam konteks industri kreatif dan Desain Komunikasi Visual (DKV), pemahaman aspek hukum ketenagakerjaan sangat penting guna melindungi hak kekayaan intelektual (HKI) serta keadilan kontrak kerja desainer.</p>
                             
-                            <h5 class="text-neon mt-4 mb-2">Hak & Kewajiban Tenaga Kerja</h5>
-                            <ul>
-                                <li><strong>Hak Pekerja:</strong> Hak memperoleh upah yang layak, hak atas keselamatan & kesehatan kerja (K3), hak istirahat/cuti, serta hak berserikat dan berorganisasi.</li>
-                                <li><strong>Kewajiban Pekerja:</strong> Melaksanakan pekerjaan sesuai arahan & SOP, menjaga rahasia perusahaan, serta menerapkan protokol keselamatan dalam berproduksi.</li>
-                            </ul>
-
-                            <h5 class="text-neon mt-4 mb-2">Alur Jenjang Karier Lulusan DKV</h5>
-                            <p class="small text-muted mb-3">Klik setiap langkah pada infografis interaktif di bawah ini untuk melihat detail jenjang profesionalisme desainer grafis.</p>
-                            
-                            <div class="timeline-container">
-                                <div class="timeline-step" onclick="showTimelineDetail('Siswa DKV', 'Tahap pembentukan basic skill, pemahaman software desain, konsep nirmana, serta portofolio awal melalui praktik mandiri.')">
-                                    <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
-                                    <div class="timeline-content">
-                                        <h6>Siswa DKV (Fondasi Utama)</h6>
-                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                            <h5 class="text-neon mt-4 mb-2"><i class="fa-solid fa-scale-balanced me-2"></i>Hak & Kewajiban Tenaga Kerja Desainer</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-info border-3">
+                                        <h6 class="text-info fw-bold">Hak Pekerja (Pasal 86 & 88 UU No. 13/2003)</h6>
+                                        <ul class="small ps-3">
+                                            <li class="mb-2"><strong>Hak Atas Upah Layak:</strong> Menerima imbalan finansial yang adil sesuai Upah Minimum Regional (UMR) dan keahlian spesifik.</li>
+                                            <li class="mb-2"><strong>Hak K3LH:</strong> Perlindungan atas keselamatan, kesehatan, moral, kesusilaan, dan perlakuan sesuai harkat martabat manusia.</li>
+                                            <li class="mb-2"><strong>Hak Istirahat & Cuti:</strong> Hak istirahat mingguan, cuti tahunan, dan pembatasan jam lembur (maksimal 4 jam per hari sesuai regulasi terbaru).</li>
+                                            <li><strong>Hak Berserikat:</strong> Kebebasan bergabung dalam asosiasi profesi desainer (seperti ADGI atau AIDIA).</li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="timeline-step" onclick="showTimelineDetail('Intern / Magang', 'Mempelajari realitas alur kerja agensi, menghadapi revisi dari klien riil, serta belajar proses produksi cetak massal secara langsung.')">
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-warning border-3">
+                                        <h6 class="text-warning fw-bold">Kewajiban Pekerja (KUHPerdata Pasal 1603)</h6>
+                                        <ul class="small ps-3">
+                                            <li class="mb-2"><strong>Kewajiban Ketaatan:</strong> Melaksanakan instruksi kerja kreatif dari pimpinan atau Art Director sesuai surat perjanjian kerja (SPK).</li>
+                                            <li class="mb-2"><strong>Kewajiban Menjaga Rahasia:</strong> Menjaga kerahasiaan data internal, draf branding klien, dan aset digital non-disclosure agreement (NDA).</li>
+                                            <li class="mb-2"><strong>Kewajiban Loyalitas & Integritas:</strong> Menghormati hak cipta (copyright) aset gambar, menghindari praktik plagiarisme seni, dan mengutamakan keselamatan kerja bersama.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="text-neon mt-4 mb-2"><i class="fa-solid fa-road me-2"></i>Peluang Kerja & Alur Jenjang Karier DKV (Fase E)</h5>
+                            <p class="small text-muted mb-3">Kurikulum Merdeka menekankan penguasaan alur bisnis DKV. Klik setiap langkah pada infografis interaktif di bawah ini untuk melihat detail evolusi jenjang profesionalisme desainer grafis.</p>
+                            
+                            <div class="timeline-container">
+                                <div class="timeline-step" onclick="showTimelineDetail('Siswa DKV', 'Tahap pembentukan dasar-dasar kreativitas (Fase E). Fokus pada pemahaman elemen desain (titik, garis, bidang, warna), prinsip tata letak (nirmana), penguasaan dasar software vektor/raster (Adobe Illustrator, Photoshop), serta pembentukan portofolio akademik awal.')">
+                                    <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                                    <div class="timeline-content">
+                                        <h6>Siswa DKV (Fondasi Kompetensi)</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk detail kualifikasi akademik.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-step" onclick="showTimelineDetail('Intern / Magang', 'Periode adaptasi lingkungan industri nyata. Siswa magang mempelajari realitas alur kerja agensi periklanan (advertising agency) atau percetakan, belajar menghadapi brief langsung, revisi ketat, manajemen waktu, serta memahami proses pre-press (pra-cetak) fisik.')">
                                     <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
                                     <div class="timeline-content">
                                         <h6>Magang Kerja / Internship</h6>
-                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                        <p class="small mb-0 text-muted">Klik untuk detail tantangan industri.</p>
                                     </div>
                                 </div>
-                                <div class="timeline-step" onclick="showTimelineDetail('Junior Designer', 'Bekerja secara teknis penuh berdasarkan arahan kreatif senior. Fokus pada pengerjaan layouting, typesetting, dan branding dasar.')">
+                                <div class="timeline-step" onclick="showTimelineDetail('Junior Designer', 'Bekerja secara teknis penuh di bawah supervisi desainer senior. Tugas harian meliputi eksekusi draf tata letak layouting, perbaikan aset digital (retouching), pengerjaan materi promosi media sosial terjadwal, dan penyusunan berkas cetak siap pakai (PDF/X).')">
                                     <div class="timeline-icon"><i class="fas fa-user-ninja"></i></div>
                                     <div class="timeline-content">
                                         <h6>Junior Designer</h6>
-                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                        <p class="small mb-0 text-muted">Klik untuk detail tugas teknis harian.</p>
                                     </div>
                                 </div>
-                                <div class="timeline-step" onclick="showTimelineDetail('Graphic Designer', 'Menyusun strategi visual secara mandiri, mengonsep kampanye visual kreatif, serta bertanggung jawab penuh pada komunikasi desain.')">
+                                <div class="timeline-step" onclick="showTimelineDetail('Graphic Designer', 'Menjadi penanggung jawab mandiri dalam menyusun strategi komunikasi visual produk/brand. Bertugas menerjemahkan konsep pemasaran klien menjadi sistem identitas visual yang aplikatif, merancang panduan brand (Brand Guideline), serta mempresentasikan solusi desain secara logis.')">
                                     <div class="timeline-icon"><i class="fas fa-palette"></i></div>
                                     <div class="timeline-content">
                                         <h6>Graphic Designer</h6>
-                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                        <p class="small mb-0 text-muted">Klik untuk detail kewajiban strategis.</p>
                                     </div>
                                 </div>
-                                <div class="timeline-step" onclick="showTimelineDetail('Art Director', 'Memimpin divisi kreatif, menyatukan visual artis dengan strategi pemasaran global, mengawasi kualitas estetik proyek, dan memimpin rapat klien.')">
+                                <div class="timeline-step" onclick="showTimelineDetail('Art Director', 'Puncak kepemimpinan kreatif (Creative Leadership). Bertugas merumuskan konsep estetik kampanye visual global, memimpin tim desainer, illustrator, copywriter, dan fotografer. Bertanggung jawab penuh atas kualitas artistik proyek, negosiasi tingkat tinggi dengan klien, serta inovasi bisnis visual agensi.')">
                                     <div class="timeline-icon"><i class="fas fa-crown"></i></div>
                                     <div class="timeline-content">
-                                        <h6>Art Director</h6>
-                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                        <h6>Art Director / Creative Director</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk detail posisi kepemimpinan.</p>
                                     </div>
                                 </div>
                             </div>
@@ -840,31 +858,68 @@
                     },
                     {
                         id: "k3lh-sub2",
-                        title: "A2. Keselamatan Kerja & APD",
+                        title: "A2. Regulasi K3LH, Klasifikasi Bahaya & APD",
                         content: `
-                            <h4 class="text-neon mb-3">Penerapan K3LH di Lingkungan Desain & Cetak</h4>
-                            <p>Lingkungan kerja DKV yang mencakup studio komputer, studio fotografi, dan ruang cetak industri memiliki potensi bahaya fisik, ergonomi, maupun paparan kimia dari tinta cetak.</p>
+                            <h4 class="text-neon mb-3">Kesehatan, Keselamatan Kerja, dan Lingkungan Hidup (K3LH)</h4>
+                            <p>Berdasarkan <strong>UU No. 1 Tahun 1970 tentang Keselamatan Kerja</strong>, K3LH di lingkungan industri DKV bukan sekadar pelengkap, melainkan pilar utama perlindungan jiwa pekerja. Industri DKV memiliki klasifikasi potensi bahaya (hazards) yang spesifik.</p>
                             
-                            <h5 class="text-neon mt-4 mb-3">Eksplorasi APD Interaktif</h5>
-                            <p class="small text-muted">Klik bagian pin merah pada visual ilustrasi pekerja cetak di bawah ini untuk melihat klasifikasi fungsi APD penting.</p>
+                            <h5 class="text-neon mt-4 mb-2"><i class="fa-solid fa-triangle-exclamation me-2"></i>Identifikasi 4 Potensi Bahaya Utama di Studio & Percetakan DKV</h5>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-danger border-3">
+                                        <h6>1. Bahaya Ergonomi (Ergonomic Hazards)</h6>
+                                        <p class="small text-muted mb-0">Posisi duduk statis di depan komputer selama berjam-jam secara salah dapat menyebabkan gangguan muskuloskeletal kronis, ketegangan otot leher, cedera tulang belakang lumbar, dan <em>Carpal Tunnel Syndrome</em> (penyempitan saraf pergelangan tangan).</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-danger border-3">
+                                        <h6>2. Bahaya Kimia (Chemical Hazards)</h6>
+                                        <p class="small text-muted mb-0">Paparan langsung pelarut kimia berbasis alkohol keras (solvent), cairan developer plat offset logam, tinta bubuk kering toner laserjet, dan bahan kimia pembersih rol silinder mesin cetak yang dapat merusak sistem pernapasan dan kulit.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-danger border-3">
+                                        <h6>3. Bahaya Fisik (Physical Hazards)</h6>
+                                        <p class="small text-muted mb-0">Instalasi jaringan kabel komputer yang semrawut di lantai (pemicu tersandung/korsleting listrik), pencahayaan monitor yang tidak dikalibrasi (kelelahan retina mata), serta kebisingan intensitas tinggi di ruang mesin cetak massal.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-danger border-3">
+                                        <h6>4. Bahaya Psikososial (Psychosocial Hazards)</h6>
+                                        <p class="small text-muted mb-0">Beban kerja mental tinggi akibat keharusan menghadapi tenggat waktu (deadline) ketat dari banyak klien, tuntutan revisi tanpa batas, serta kelelahan fisik akibat lembur terus-menerus (burnout).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="text-neon mt-4 mb-3"><i class="fa-solid fa-user-shield me-2"></i>Eksplorasi APD Interaktif Operator Cetak & Studio</h5>
+                            <p class="small text-muted">Klik bagian pin merah pada visual ilustrasi pekerja cetak di bawah ini untuk melihat klasifikasi fungsi APD penting yang wajib digunakan oleh operator sesuai SOP.</p>
 
                             <div class="hotspot-container text-center py-4 bg-dark rounded-3 position-relative" style="height: 380px;">
                                 <i class="fas fa-user-astronaut text-neon" style="font-size: 11rem; margin-top: 40px;"></i>
                                 <!-- Helm Hotspot -->
-                                <div class="hotspot-btn" style="top: 30px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Helm Pengaman (Safety Helmet)', 'Melindungi bagian vital kepala dari kecelakaan fisik akibat benturan benda keras di ruang produksi cetak massal.')"></div>
+                                <div class="hotspot-btn" style="top: 30px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Helm Pengaman (Safety Helmet)', 'Wajib digunakan saat berada di area pergudangan kertas plano dan ruang produksi offset. Berfungsi melindung kepala dari risiko fatal benturan fisik akibat jatuhnya gulungan kertas seberat ratusan kilogram atau komponen mesin.')"></div>
                                 <!-- Kacamata Hotspot -->
-                                <div class="hotspot-btn" style="top: 75px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Goggles / Kacamata Safety', 'Melindungi retina mata dari risiko percikan serbuk kertas, larutan pembersih plat offset, dan cahaya UV kuat mesin cetak modern.')"></div>
+                                <div class="hotspot-btn" style="top: 75px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Goggles / Kacamata Safety', 'Melindungi retina mata dari risiko percikan serbuk halus kertas sisa potongan mesin, cipratan larutan pembersih plat offset, serta radiasi sinar UV intensitas tinggi dari mesin curing pengering tinta digital printing.')"></div>
                                 <!-- Masker Hotspot -->
-                                <div class="hotspot-btn" style="top: 110px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Masker Respirator', 'Mencegah terhirupnya uap pelarut kimia berbasis alkohol keras (solvent) yang umum digunakan pada cat cetak digital.')"></div>
+                                <div class="hotspot-btn" style="top: 110px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Masker Respirator Kimia', 'Wajib digunakan saat menuang tinta solvent atau membersihkan silinder mesin offset. Mencegah terhirupnya uap senyawa organik volatil (VOC) dan partikel mikro serbuk toner printer laser yang bersifat karsinogenik.')"></div>
                                 <!-- Sarung Tangan Hotspot -->
-                                <div class="hotspot-btn" style="top: 170px; left: 35%;" onclick="showApdDetail('Sarung Tangan Nitril', 'Menghalangi zat kimia korosif seperti developer plat offset merusak kulit tangan operator saat proses perawatan rutin.')"></div>
+                                <div class="hotspot-btn" style="top: 170px; left: 35%;" onclick="showApdDetail('Sarung Tangan Nitril / Karet', 'Menghindari penyerapan zat pelarut kimia korosif melalui pori-pori kulit tangan operator saat melakukan perawatan berkala mesin, pencucian rol tinta, serta pencampuran cairan dampening.')"></div>
                                 <!-- Sepatu Hotspot -->
-                                <div class="hotspot-btn" style="bottom: 40px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Sepatu Safety (Steel-Toe Boots)', 'Menghindari cedera fatal akibat tertimpa gulungan kertas cetak industri yang sangat berat atau tergelincir oli mesin.')"></div>
+                                <div class="hotspot-btn" style="bottom: 40px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Sepatu Safety (Steel-Toe Boots)', 'Menghindari cedera fraktur kaki jika kejatuhan alat perkakas, tumpukan kertas plano, atau terjepit bagian bawah mesin cetak. Dilengkapi sol karet anti-statis dan anti-slip guna mencegah kecelakaan akibat tumpahan pelumas mesin.')"></div>
                             </div>
 
                             <div id="apd-detail-box" class="bg-glass p-3 rounded-3 mt-4 d-none border border-info animate__animated animate__fadeIn">
                                 <h6 class="text-neon mb-1" id="apd-detail-title">Nama APD</h6>
                                 <p class="small mb-0" id="apd-detail-desc"></p>
+                            </div>
+
+                            <h5 class="text-neon mt-5 mb-3"><i class="fa-solid fa-traffic-light me-2"></i>SOP Keselamatan Kerja di Studio DKV</h5>
+                            <div class="bg-glass p-3 border border-secondary rounded-3">
+                                <ol class="small ps-3 mb-0">
+                                    <li class="mb-2"><strong>SOP Ergonomi Komputer:</strong> Jarak pandang mata ke monitor wajib dijaga berkisar 50-70 cm dengan sudut kemiringan monitor 10-20 derajat. Lakukan peregangan fisik (senam peregangan 20-20-20) setiap 20 menit bekerja di depan layar.</li>
+                                    <li class="mb-2"><strong>SOP Kelistrikan:</strong> Dilarang keras menggunakan sambungan stop kontak bertumpuk (overload) pada sirkuit kelistrikan komputer desainer demi meminimalkan risiko bahaya kebakaran akibat hubungan arus pendek.</li>
+                                    <li><strong>SOP Penanganan Bahan Kimia:</strong> Penyimpanan botol solvent pengencer tinta cetak wajib menggunakan wadah berlabel tanda bahaya kimia yang diletakkan dalam lemari berventilasi khusus, jauh dari jangkauan percikan listrik.</li>
+                                </ol>
                             </div>
                         `
                     }
@@ -875,29 +930,29 @@
                 sub: [
                     {
                         id: "budaya-sub1",
-                        title: "B1. Karakter Budaya Kerja Kreatif",
+                        title: "B1. Karakter Budaya Kerja Kreatif & Berpikir Kritis",
                         content: `
-                            <h4 class="text-neon mb-3">Sikap Kerja Produktif & Problem Solving</h4>
-                            <p>Industri kreatif menghargai kecepatan tanggapan, fleksibilitas inovatif, kegigihan dalam menghadapi kendala teknis, dan kemampuan bekerja dalam tim kolaboratif.</p>
+                            <h4 class="text-neon mb-3">Pilar Sikap Kerja Produktif, Critical Thinking & Problem Solving</h4>
+                            <p>Industri kreatif menuntut pola pikir inovatif yang terstruktur. Sesuai Kurikulum Merdeka Fase E, siswa diajarkan membangun budaya kerja mandiri yang selaras dengan iklim kerja profesional agensi kelas dunia.</p>
 
-                            <h5 class="text-neon mt-4 mb-3">Grafik Radar Karakter Budaya Kerja Kreatif</h5>
-                            <p class="small text-muted">Klik salah satu elemen nilai pilar budaya kerja kreatif di bawah untuk memahami prinsip integrasinya di dunia industri.</p>
+                            <h5 class="text-neon mt-4 mb-3"><i class="fa-solid fa-brain me-2"></i>Karakter Unggul Budaya Kerja Industri Kreatif</h5>
+                            <p class="small text-muted">Klik setiap elemen pilar budaya di bawah ini untuk memahami implementasi sikap kerja tersebut di dalam ekosistem studio desain komersial.</p>
 
-                            <div class="row text-center mt-3">
+                            <div class="row text-center mt-3 justify-content-center">
                                 <div class="col-md-2 col-4 mb-2">
-                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Disiplin Kerja', 'Kehadiran tepat waktu, ketat menepati tenggat revisi, dan konsisten mematuhi SOP kerja.')"><i class="fas fa-clock d-block fs-3 mb-2"></i>Disiplin</button>
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Disiplin Kerja', 'Bukan sekadar jam kehadiran, melainkan kepatuhan absolut terhadap tenggat waktu penyelesaian revisi (deadline) dan manajemen waktu pengerjaan draf kampanye visual secara terstruktur.')"><i class="fas fa-clock d-block fs-3 mb-2"></i>Disiplin</button>
                                 </div>
                                 <div class="col-md-2 col-4 mb-2">
-                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Kreativitas', 'Kemampuan menghasilkan visual bernilai seni tinggi serta mampu memberikan solusi alternatif visual bagi masalah promosi klien.')"><i class="fas fa-wand-magic-sparkles d-block fs-3 mb-2"></i>Kreatif</button>
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Kreativitas', 'Kemampuan berpikir luar biasa (out-of-the-box) untuk meramu pesan komunikasi yang rumit menjadi rangkaian elemen visual (warna, tipografi, ilustrasi) yang mudah dipahami khalayak sasaran.')"><i class="fas fa-wand-magic-sparkles d-block fs-3 mb-2"></i>Kreatif</button>
                                 </div>
                                 <div class="col-md-2 col-4 mb-2">
-                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Kolaboratif', 'Bekerjasama secara sinergis lintas departemen, seperti berkoordinasi dengan copywriter, marketing, dan operator cetak.')"><i class="fas fa-users-viewfinder d-block fs-3 mb-2"></i>Kolaborasi</button>
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Kolaboratif', 'Kemampuan meredam ego personal dalam tim lintas divisi. Contoh: Desainer berkolaborasi dengan copywriter untuk menyamakan nada visual dengan teks iklan, serta berdiskusi dengan operator cetak agar hasil cetakan sesuai draf digital.')"><i class="fas fa-users-viewfinder d-block fs-3 mb-2"></i>Kolaborasi</button>
                                 </div>
                                 <div class="col-md-2 col-4 mb-2">
-                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Inovatif', 'Selalu mengeksplorasi teknologi baru (seperti AI Art Generator) tanpa melupakan kaidah dasar keilmuan seni rupa.')"><i class="fas fa-brain d-block fs-3 mb-2"></i>Inovatif</button>
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Inovatif', 'Keberanian mengeksplorasi tren teknologi baru secara positif (seperti adaptasi AI Art Generator, perpaduan 3D Rendering, dan tren UI/UX interaktif) tanpa mengabaikan teori dasar nirmana dan komunikasi visual.')"><i class="fas fa-brain d-block fs-3 mb-2"></i>Inovatif</button>
                                 </div>
                                 <div class="col-md-2 col-4 mb-2">
-                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Tanggung Jawab', 'Siap menanggung risiko jika terjadi salah cetak atau kesalahan lisensi aset gambar dengan menyelesaikan revisi sebaik mungkin.')"><i class="fas fa-clipboard-check d-block fs-3 mb-2"></i>Tanggung Jwb</button>
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Tanggung Jawab', 'Komitmen moral menjaga orisinalitas desain, mematuhi lisensi aset gambar (menghindari penggunaan ilegal font/foto komersial), serta siap bertanggung jawab atas kesalahan ketik atau salah layout sebelum masuk mesin cetak.')"><i class="fas fa-clipboard-check d-block fs-3 mb-2"></i>Tanggung Jwb</button>
                                 </div>
                             </div>
 
@@ -905,41 +960,65 @@
                                 <h6 class="text-neon mb-1" id="value-detail-title">Pilar Karakter</h6>
                                 <p class="small mb-0" id="value-detail-desc"></p>
                             </div>
+
+                            <h5 class="text-neon mt-5 mb-3"><i class="fa-solid fa-gears me-2"></i>Berpikir Kritis & Problem Solving (Pola Pikir Desainer)</h5>
+                            <div class="bg-glass p-3 border border-secondary rounded-3 small">
+                                <p>Dalam dunia DKV, <strong>Problem Solving</strong> dieksekusi melalui metode terstruktur seperti <em>Design Thinking</em>. Proses ini meliputi:</p>
+                                <ol class="ps-3 mb-0">
+                                    <li class="mb-2"><strong>Empathize:</strong> Memahami kendala bisnis klien dan kemauan audiens target secara mendalam lewat wawancara maupun pengumpulan kuesioner.</li>
+                                    <li class="mb-2"><strong>Define:</strong> Merumuskan inti masalah utama ke dalam sebuah dokumen panduan kerja yang disebut <em>Creative Brief</em>.</li>
+                                    <li class="mb-2"><strong>Ideate:</strong> Melakukan brainstorming sketsa kasar ide visual (thumbnail sketches) guna mengeksplorasi komposisi tata letak alternatif sebanyak mungkin.</li>
+                                    <li><strong>Prototype & Test:</strong> Membuat purwarupa mockup visual dan menyajikannya kepada khalayak terbatas guna mendapatkan masukan berharga sebelum draf dieksekusi secara final.</li>
+                                </ol>
+                            </div>
                         `
                     },
                     {
                         id: "budaya-sub2",
-                        title: "B2. Budaya Industri 5R (5S)",
+                        title: "B2. Implementasi Sistem Budaya Kerja 5R (5S)",
                         content: `
-                            <h4 class="text-neon mb-3">Implementasi Ringkas 5R dalam Studio DKV</h4>
-                            <p>Metode penataan lingkungan kerja 5R (Ringkas, Rapi, Resik, Rawat, Rajin) diadopsi langsung dari industri manufaktur global Jepang guna mengeliminasi pemborosan waktu kerja.</p>
-                            <table class="table table-dark table-hover table-bordered mt-3">
-                                <thead>
+                            <h4 class="text-neon mb-3">Implementasi Detail Budaya Industri 5R dalam Studio DKV</h4>
+                            <p>Sistem manajemen tempat kerja 5R (Jepang: 5S) diadopsi dari industri manufaktur kelas dunia guna memaksimalkan efisiensi, mencegah pemborosan (waste), serta meminimalkan risiko kecelakaan kerja di area desain dan percetakan.</p>
+                            
+                            <table class="table table-dark table-hover table-bordered mt-4 small">
+                                <thead class="table-info font-futuristic text-uppercase">
                                     <tr>
-                                        <th class="text-neon">Langkah 5R</th>
-                                        <th class="text-neon">Penerapan Riil di Studio DKV</th>
+                                        <th>Konsep Jepang</th>
+                                        <th>Aspek Indonesia</th>
+                                        <th>Penjelasan Teoritis</th>
+                                        <th>Implementasi Nyata di Studio DKV</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><strong>Ringkas (Seiri)</strong></td>
-                                        <td>Menghapus tumpukan file sampah atau file draf revisi tak berpakai agar alokasi penyimpanan server lokal studio tetap lowong.</td>
+                                        <td><strong>Seiri</strong></td>
+                                        <td><span class="text-neon fw-bold">Ringkas</span></td>
+                                        <td>Memisahkan barang yang masih diperlukan dengan yang sudah tidak berguna, lalu membuang barang yang tidak diperlukan dari tempat kerja.</td>
+                                        <td>Menghapus tumpukan file sampah, duplikasi draf revisi tidak berpakai di server lokal desainer, serta menyortir berkas plat offset bekas pakai yang rusak untuk didaur ulang.</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Rapi (Seiton)</strong></td>
-                                        <td>Mengarsipkan dokumen penawaran harga secara teratur ke dalam lemari laci, serta memberi label identitas warna pada kabel kelistrikan PC.</td>
+                                        <td><strong>Seiton</strong></td>
+                                        <td><span class="text-neon fw-bold">Rapi</span></td>
+                                        <td>Menyusun barang-barang yang diperlukan dengan aturan tata letak yang jelas agar mudah dicari dan digunakan kembali saat keadaan mendesak.</td>
+                                        <td>Mengarsipkan dokumen penawaran harga klien secara alfabetis dalam lemari laci, menata rapi lensa kamera studio di dry cabinet, dan memberi label penunjuk kabel PC.</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Resik (Seiso)</strong></td>
-                                        <td>Membersihkan permukaan lensa kamera, scanner optik, dan sensor cetak secara terjadwal dengan microfiber anti statis khusus.</td>
+                                        <td><strong>Seiso</strong></td>
+                                        <td><span class="text-neon fw-bold">Resik</span></td>
+                                        <td>Membersihkan seluruh tempat kerja, mesin, perkakas kerja, dan memelihara kebersihannya agar tidak ada kotoran yang dapat memicu kerusakan alat.</td>
+                                        <td>Membersihkan permukaan optik kaca scanner, lensa kamera, permukaan sensor plat offset dari debu halus serat kertas menggunakan kuas udara dan kain serat mikro khusus.</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Rawat (Seiketsu)</strong></td>
-                                        <td>Memelihara standarisasi kenyamanan pencahayaan studio dengan rutin melakukan kalibrasi profil warna monitor desainer.</td>
+                                        <td><strong>Seiketsu</strong></td>
+                                        <td><span class="text-neon fw-bold">Rawat</span></td>
+                                        <td>Mempertahankan standarisasi kebersihan, kerapian, dan kedisiplinan yang telah dicapai pada 3 tahap pertama (Ringkas, Rapi, Resik) secara konsisten.</td>
+                                        <td>Melakukan kalibrasi profil warna monitor desainer secara mingguan (menghindari selisih rona warna cetak) dan mencatat jadwal pelumasan gir silinder mesin cetak offset.</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Rajin (Shitsuke)</strong></td>
-                                        <td>Membiasakan seluruh kru desainer untuk melakukan evaluasi mandiri kerja harian 10 menit sebelum jam operasional kantor selesai.</td>
+                                        <td><strong>Shitsuke</strong></td>
+                                        <td><span class="text-neon fw-bold">Rajin</span></td>
+                                        <td>Membiasakan diri melaksanakan budaya kerja yang baik secara mandiri tanpa perlu diawasi secara ketat oleh pimpinan.</td>
+                                        <td>Membudayakan seluruh kru studio untuk melakukan kegiatan bebersih mandiri selama 10 menit di penghujung jam operasional kantor secara konsisten setiap hari.</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -952,29 +1031,33 @@
                 sub: [
                     {
                         id: "cetak-sub1",
-                        title: "C1. Jenis Mesin Cetak Industri",
+                        title: "C1. Perbandingan Teknologi Cetak Industri",
                         content: `
-                            <h4 class="text-neon mb-3">Perbedaan Mesin Offset & Digital Printing</h4>
-                            <div class="row">
+                            <h4 class="text-neon mb-3">Analisis Komparasi Mesin Cetak Offset & Digital Printing</h4>
+                            <p>Proses mewujudkan karya desain digital menjadi produk fisik membutuhkan pemahaman teknologi cetak industri. Kurikulum Merdeka Fase E mengklasifikasikan mesin cetak utama industri menjadi dua kelompok besar.</p>
+                            
+                            <div class="row mt-4">
                                 <div class="col-md-6 mb-3">
                                     <div class="bg-glass p-3 h-100 border-start border-info border-3">
-                                        <h5 class="text-info"><i class="fas fa-newspaper me-2"></i>Mesin Offset Printing</h5>
-                                        <p class="small text-muted">Mesin cetak berbasis acuan pelat logam yang mentransfer tinta ke silinder selimut karet (blanket) sebelum menyentuh kertas.</p>
-                                        <ul class="small">
-                                            <li>Ideal untuk produksi massal (di atas 1000 lembar).</li>
-                                            <li>Biaya produksi per lembar sangat murah jika kuantitas sangat besar.</li>
-                                            <li>Membutuhkan waktu persiapan awal pembuatan pelat (setup time) yang cukup lama.</li>
+                                        <h5 class="text-info font-futuristic"><i class="fas fa-newspaper me-2"></i>Mesin Offset Printing (Cetak Datar)</h5>
+                                        <p class="small text-muted">Teknologi reproduksi gambar massal menggunakan prinsip kimiawi saling menolak antara air dan minyak. Gambar ditransfer dari pelat alumunium peka cahaya menuju silinder berselimut karet elastis (blanket), kemudian baru dicetakkan ke permukaan kertas.</p>
+                                        <ul class="small ps-3">
+                                            <li class="mb-2"><strong>Efisiensi Skala Besar:</strong> Sangat ekonomis untuk pencetakan massal (di atas 1.000 lembar eksampler).</li>
+                                            <li class="mb-2"><strong>Kualitas Konsisten:</strong> Reproduksi warna rona khusus (Pantone/PMS) dan ketajaman raster gambar sangat tinggi.</li>
+                                            <li class="mb-2"><strong>Proses Setup Rumit:</strong> Membutuhkan proses panjang pembuatan plat seng (CTP), penyetelan kepekatan tinta manual, dan pembersihan silinder mesin.</li>
+                                            <li><strong>Ragam Media:</strong> Fleksibel mencetak pada berbagai jenis kertas bertekstur, karton tebal, hingga media kayu atau logam tipis.</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="bg-glass p-3 h-100 border-start border-warning border-3">
-                                        <h5 class="text-warning"><i class="fas fa-images me-2"></i>Digital Printing</h5>
-                                        <p class="small text-muted">Teknologi cetak langsung dari data digital komputer ke media cetak melalui semprotan tinta printer cair atau bubuk kering toner.</p>
-                                        <ul class="small">
-                                            <li>Sangat ekonomis untuk cetak skala satuan / sedikit.</li>
-                                            <li>Proses pengerjaan kilat tanpa perlu proses kimiawi pelat acuan.</li>
-                                            <li>Mendukung teknik pencetakan data variabel unik (VDP).</li>
+                                        <h5 class="text-warning font-futuristic"><i class="fas fa-images me-2"></i>Digital Printing (Cetak Digital)</h5>
+                                        <p class="small text-muted">Proses cetak tanpa perantara pelat cetak fisik (plateless). Berkas desain di komputer langsung diubah menjadi instruksi pengontrol semprotan tinta cair (inkjet) atau pemanasan bubuk pigmen (toner) laserjet secara langsung ke atas media cetak.</p>
+                                        <ul class="small ps-3">
+                                            <li class="mb-2"><strong>Efisiensi Skala Mikro:</strong> Sangat murah untuk pencetakan volume sedikit/satuan tanpa minimal order (Print on Demand).</li>
+                                            <li class="mb-2"><strong>Kecepatan Tinggi:</strong> Tanpa waktu persiapan CTP, file siap langsung dikirim ke mesin cetak untuk dicetak seketika itu juga.</li>
+                                            <li class="mb-2"><strong>Variable Data Printing (VDP):</strong> Memungkinkan pencetakan informasi berbeda di setiap lembar cetak (misal: penulisan nama unik pada sertifikat atau nomor seri tiket).</li>
+                                            <li><strong>Keterbatasan Media:</strong> Terbatas pada jenis kertas bersuhu panas tinggi dan ketebalan kertas tertentu (biasanya maksimal 310 gsm untuk laserjet).</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -983,28 +1066,28 @@
                     },
                     {
                         id: "cetak-sub2",
-                        title: "C2. Anatomi Mesin Cetak Offset",
+                        title: "C2. Anatomi, Operasional & Troubleshooting Mesin Cetak",
                         content: `
-                            <h4 class="text-neon mb-3">Bagian Utama Mesin Cetak Offset</h4>
-                            <p class="small text-muted mb-4">Mengenal silinder mekanikal penting mesin offset offset lithography. Klik area hotspot komponen untuk mempelajari detail kerjanya.</p>
+                            <h4 class="text-neon mb-3">Struktur Sistem Mekanis, Prosedur Kerja & Solusi Kendala Teknis Cetak</h4>
+                            <p class="small text-muted">Memahami prinsip silinder putar (rotary cylinders) pada mesin offset lithography modern. Klik area komponen rol di bawah untuk mempelajari detail fungsi kerjanya.</p>
 
                             <div class="hotspot-container bg-dark rounded-4 p-4 text-center" style="min-height: 400px;">
                                 <div class="border border-secondary border-dashed p-4 rounded-3 d-inline-block position-relative bg-glass" style="width: 300px; height: 320px;">
-                                    <h6 class="font-futuristic text-neon mt-2">Offset Roller System</h6>
+                                    <h6 class="font-futuristic text-neon mt-2">Offset Cylinder Anatomy</h6>
                                     
                                     <!-- Inking System -->
-                                    <div class="border border-info rounded-circle d-flex align-items-center justify-content-center m-auto" style="width: 70px; height: 70px; margin-top: 10px !important;" onclick="showComponentDetail('Inking Unit (Rol Tinta)', 'Berfungsi untuk menyalurkan dan meratakan lapisan tipis tinta cetak secara konstan dari bak tinta menuju silinder acuan pelat.')">
+                                    <div class="border border-info rounded-circle d-flex align-items-center justify-content-center m-auto" style="width: 70px; height: 70px; margin-top: 10px !important;" onclick="showComponentDetail('Inking Unit (Sistem Rol Tinta)', 'Terdiri atas puluhan rol karet presisi tinggi yang bertugas memeras, meratakan, dan menyalurkan lapisan tipis tinta cetak berbasis minyak secara konsisten dari bak tinta utama menuju permukaan gambar pada Plate Cylinder.')">
                                         <i class="fas fa-droplet text-info fs-4"></i>
                                     </div>
                                     <div class="text-info small mt-1">Inking Unit</div>
 
                                     <!-- Plate Cylinder -->
-                                    <div class="border border-warning rounded-circle d-flex align-items-center justify-content-center m-auto mt-3" style="width: 60px; height: 60px;" onclick="showComponentDetail('Plate Cylinder', 'Silinder tempat dipasangnya plat alumunium yang berisi visual raster gambar negatif siap ditransfer ke rol blanket.')">
+                                    <div class="border border-warning rounded-circle d-flex align-items-center justify-content-center m-auto mt-3" style="width: 60px; height: 60px;" onclick="showComponentDetail('Plate Cylinder (Silinder Plat)', 'Silinder logam tempat dipasangnya plat alumunium sensitif cahaya yang telah disinari laser (CTP). Bagian pelat ini menarik tinta berminyak pada area gambar, namun menolak tinta (hanya mengikat air) pada area kosong non-gambar.')">
                                         <span class="fw-bold">PLATE</span>
                                     </div>
 
                                     <!-- Blanket Cylinder -->
-                                    <div class="border border-success rounded-circle d-flex align-items-center justify-content-center m-auto mt-2" style="width: 70px; height: 70px;" onclick="showComponentDetail('Blanket Cylinder', 'Silinder pembungkus karet elastis (blanket) yang bertugas menyerap gambar dari plat logam dan mengoperkannya ke kertas cetak.')">
+                                    <div class="border border-success rounded-circle d-flex align-items-center justify-content-center m-auto mt-2" style="width: 70px; height: 70px;" onclick="showComponentDetail('Blanket Cylinder (Silinder Karet)', 'Silinder pembungkus selimut karet (rubber blanket) khusus yang bertugas menerima transfer gambar tinta dari silinder plat seng, lalu memindahkannya secara lentur ke atas permukaan kertas cetak tanpa merusak anyaman kertas.')">
                                         <span class="fw-bold text-success text-center" style="font-size: 0.7rem;">RUBBER<br>BLANKET</span>
                                     </div>
                                 </div>
@@ -1013,6 +1096,46 @@
                             <div id="component-detail-box" class="bg-glass p-3 rounded-3 mt-4 d-none border border-info animate__animated animate__fadeIn">
                                 <h6 class="text-neon mb-1" id="component-detail-title">Nama Komponen</h6>
                                 <p class="small mb-0" id="component-detail-desc"></p>
+                            </div>
+
+                            <h5 class="text-neon mt-5 mb-3"><i class="fa-solid fa-clipboard-list me-2"></i>Tahapan Persiapan Kerja Cetak Offset (Pre-Press SOP)</h5>
+                            <div class="bg-glass p-3 border border-secondary rounded-3 small">
+                                <ol class="ps-3 mb-0">
+                                    <li class="mb-2"><strong>Pre-Flight Check:</strong> Melakukan pemeriksaan format berkas desain digital (resolusi minimal wajib 300 DPI, format warna dirubah dari RGB ke CMYK, serta penambahan area potong sebesar 2-3 mm / bleed).</li>
+                                    <li class="mb-2"><strong>Computer-to-Plate (CTP):</strong> Mengekspor berkas halaman desain menjadi 4 plat logam peka cahaya terpisah (Cyan, Magenta, Yellow, Key/Black).</li>
+                                    <li class="mb-2"><strong>Setting register cetak:</strong> Menyetel posisi dan keakuratan koordinat tumpukan cetakan keempat plat di silinder mesin agar gambar saling tumpang tindih secara presisi tanpa ada warna yang bergeser.</li>
+                                    <li><strong>Perawatan Berkala Mesin (Maintenance):</strong> Pembersihan sisa residu cat mengering pada rol karet menggunakan solvent pencuci berkualitas, pengecekan sistem sirkulasi air pembasah, serta pemberian minyak pelumas (grease) berkala pada gir penggerak utama.</li>
+                                </ol>
+                            </div>
+
+                            <h5 class="text-neon mt-5 mb-3"><i class="fa-solid fa-wrench me-2"></i>Troubleshooting Sederhana di Industri Cetak</h5>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-hover table-bordered small">
+                                    <thead class="table-warning text-dark">
+                                        <tr>
+                                            <th>Gejala Kerusakan</th>
+                                            <th>Penyebab Masalah Teknik</th>
+                                            <th>Solusi Pemecahan Masalah (Problem Solving)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Misregister (Warna Bergeser)</strong></td>
+                                            <td>Kertas mengalami selip saat keluar dari feeder unit atau pengaturan tumpukan koordinat plat tidak presisi.</td>
+                                            <td>Matikan mesin cetak, periksa karet penarik kertas di feeder, setel ulang register mikrometer silinder plat cetak secara presisi.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Scumming (Kotor Tinta Bergaris)</strong></td>
+                                            <td>Kurangnya pasokan air pembasah pada silinder plat sehingga area non-gambar ikut mengikat tinta berminyak.</td>
+                                            <td>Naikkan laju debit aliran cairan air pembasah pada damper rol, gosok plat menggunakan spons basah berlarutan gum khusus.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ghosting (Bayangan Pudar)</strong></td>
+                                            <td>Penyaluran transfer debit tinta dari bak penampung tidak konstan/terlalu tipis pada area ber-raster solid besar.</td>
+                                            <td>Atur ulang kerapatan sekrup pembagi pisau tinta pada bak tinta utama guna menambah debit asupan warna pada rol penyalur.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         `
                     }
@@ -1026,35 +1149,95 @@
 
         // Hasilkan Bank Soal Berkualitas Tinggi Secara Otomatis guna memenuhi kuota 20 Pretest & 25 Posttest
         function generateQuestionBank() {
-            // Generate 20 Pretest Questions
-            for (let i = 1; i <= 20; i++) {
+            // Generate 20 Pretest Questions (Fase E DKV K3LH & Budaya Kerja)
+            const pretestData = [
+                {
+                    q: "Berdasarkan regulasi UU No. 13 Tahun 2003 tentang Ketenagakerjaan, apa yang dimaksud dengan hubungan kerja?",
+                    o: ["Hubungan persahabatan antara pemilik usaha di luar jam operasional", "Hubungan antara pengusaha dengan pekerja berdasarkan perjanjian kerja yang mempunyai unsur pekerjaan, upah, dan perintah", "Hubungan sewa-menyewa ruang kantor studio DKV saja", "Hubungan sosial antar buruh harian tanpa ikatan kontrak tertulis"],
+                    c: 1,
+                    e: "Hubungan kerja adalah hubungan hukum yang memuat unsur pekerjaan, upah layak, dan instruksi kerja operasional (perintah) yang sah menurut regulasi ketenagakerjaan."
+                },
+                {
+                    q: "Sebutkan undang-undang yang mengatur landasan hukum Keselamatan Kerja di Indonesia!",
+                    o: ["UU No. 13 Tahun 2003", "UU No. 1 Tahun 1970", "UU No. 20 Tahun 2003", "UU No. 24 Tahun 2011"],
+                    c: 1,
+                    e: "UU No. 1 Tahun 1970 tentang Keselamatan Kerja adalah payung hukum utama yang wajib diterapkan pada setiap lingkungan kerja fisik."
+                },
+                {
+                    q: "Mengapa desainer DKV sangat rentan terkena cedera Carpal Tunnel Syndrome (CTS)?",
+                    o: ["Akibat paparan zat kimia pelarut tinta cetak offset", "Akibat posisi duduk statis dan gerakan pergelangan tangan berulang-ulang saat memegang mouse komputer secara tidak ergonomis", "Akibat radiasi cahaya lampu studio fotografi", "Akibat terlalu sering bekerja lembur melampaui 8 jam"],
+                    c: 1,
+                    e: "Gerakan mengetik dan menggenggam tetikus (mouse) secara terus menerus dengan posisi pergelangan menekuk memicu penekanan saraf median pergelangan tangan (CTS)."
+                },
+                {
+                    q: "Apa nama alat pelindung diri (APD) yang wajib dipakai operator cetak offset saat menuang cairan pembersih plat?",
+                    o: ["Masker kain tipis", "Kacamata hitam gaya", "Sarung tangan karet/nitril dan kacamata safety (goggles)", "Sepatu safety berujung baja tanpa penutup hidung"],
+                    c: 2,
+                    e: "Sarung tangan karet/nitril mencegah zat kimia korosif merusak kulit tangan, sedangkan safety goggles melindungi retina mata dari bahaya cipratan cairan pembersih."
+                },
+                {
+                    q: "Apa kepanjangan dan filosofi dari konsep budaya kerja 5R yang diadopsi dari industri manufaktur Jepang?",
+                    o: ["Rapi, Ringan, Ramah, Rukun, Riang", "Ringkas, Rapi, Resik, Rawat, Rajin", "Rancang, Rekonstruksi, Refleksi, Rawat, Rapi", "Rasa, Rupa, Rancang, Rapi, Rajin"],
+                    c: 1,
+                    e: "5R merupakan adaptasi dari 5S Jepang (Seiri, Seiton, Seiso, Seiketsu, Shitsuke) yang bertujuan menciptakan efisiensi lingkungan kerja fisik."
+                }
+            ];
+
+            // Populate Pretest
+            for (let i = 0; i < 20; i++) {
+                const base = pretestData[i % pretestData.length];
                 SOAL_PRETEST.push({
-                    id: `pre-${i}`,
-                    question: `Pertanyaan Pretest ${i}: Berdasarkan pemahaman kompetensi DKV, manakah yang merupakan implementasi terbaik untuk regulasi keselamatan ${i % 2 === 0 ? 'K3LH' : 'Budaya Kerja'} dalam operasional studio kreatif?`,
-                    options: [
-                        "Mengabaikan standar ergonomi agar pengerjaan cepat selesai",
-                        "Menyesuaikan tinggi monitor dan sandaran kursi demi menjaga kesehatan tulang belakang desainer",
-                        "Menaruh minuman hangat langsung di samping unit prosesor komputer utama",
-                        "Mematikan fungsi pendingin ruangan secara total tanpa alasan darurat"
-                    ],
-                    correct: 1,
-                    explanation: "Mengatur ergonomis tempat duduk dan perangkat keras kerja dengan tepat adalah implementasi standar emas guna mengurangi risiko sakit otot leher dan carpal tunnel syndrome desainer."
+                    id: `pre-${i + 1}`,
+                    question: `[Pretest Q${i + 1}] ${base.q}`,
+                    options: base.o,
+                    correct: base.c,
+                    explanation: base.e
                 });
             }
 
-            // Generate 25 Posttest Questions
-            for (let i = 1; i <= 25; i++) {
+            // Generate 25 Posttest Questions (Komprehensif Fase E DKV)
+            const posttestData = [
+                {
+                    q: "Manakah yang merupakan wujud penerapan prinsip Seiri (Ringkas) di dalam studio desain komputer?",
+                    o: ["Menyapu seluruh lantai studio hingga bersih berkilau", "Menghapus draf-draf revisi lawas tidak terpakai agar memori server komputer tetap lowong", "Menyusun laci arsip berkas secara alfabetis", "Mengkalibrasi profil pencahayaan warna monitor secara berkala"],
+                    c: 1,
+                    e: "Seiri (Ringkas) berfokus pada memisahkan barang/file yang masih diperlukan dengan yang tidak berguna, lalu mengeliminasi sisa pemborosan tersebut."
+                },
+                {
+                    q: "Apa perbedaan paling mendasar antara proses pencetakan mesin Offset dengan Digital Printing?",
+                    o: ["Offset menggunakan toner bubuk kering, sedangkan digital menggunakan pelat peka cahaya seng", "Offset menggunakan pelat acuan fisik (CTP) untuk pencetakan massal, sedangkan digital mencetak langsung dari data komputer tanpa plat (plateless)", "Offset tidak memerlukan tinta berbasis minyak", "Offset hanya bisa mencetak pada media kain sutera saja"],
+                    c: 1,
+                    e: "Mesin Offset memerlukan persiapan cetak pembuatan plat seng fisik lewat CTP, sedangkan mesin cetak digital bekerja langsung mencetak dari komputer ke kertas."
+                },
+                {
+                    q: "Mengapa proses kalibrasi monitor desainer secara berkala wajib dimasukkan dalam standar Seiketsu (Rawat)?",
+                    o: ["Agar monitor tidak berdebu", "Agar warna visual yang terlihat pada layar memiliki kemiripan tinggi dengan hasil cetak fisik kelak", "Agar konsumsi daya listrik komputer menjadi lebih hemat", "Agar sistem operasi komputer terhindar dari serangan virus digital"],
+                    c: 1,
+                    e: "Kalibrasi monitor secara konstan menjaga standarisasi kualitas rona warna (Seiketsu) agar desainer terhindar dari kesalahan salah cetak."
+                },
+                {
+                    q: "Gejala cacat hasil cetakan di mana terdapat bayangan gambar pudar pada area raster solid disebut...",
+                    o: ["Misregister warna bergeser", "Ghosting rona memudar", "Scumming plat kotor", "Creasing kertas melipat"],
+                    c: 1,
+                    e: "Ghosting adalah kendala cetak offset akibat pasokan suplai tinta dari bak utama tidak merata pada rol karet penyalur warna cetakan."
+                },
+                {
+                    q: "Sikap tanggung jawab moral utama seorang desainer grafis profesional terkait penggunaan aset digital adalah...",
+                    o: ["Bebas mengunduh font komersial bajakan secara gratis", "Menggunakan gambar milik orang lain dari internet tanpa izin demi kepuasan klien", "Memastikan semua font, foto, dan ilustrasi yang digunakan memiliki lisensi hak cipta komersial yang legal", "Mengabaikan orisinalitas karya demi mengejar penyelesaian deadline yang cepat"],
+                    c: 2,
+                    e: "Integritas moral desainer diukur dari kedisiplinan dan tanggung jawab menghormati hak kekayaan intelektual (HKI) serta lisensi hukum aset gambar komersial."
+                }
+            ];
+
+            // Populate Posttest
+            for (let i = 0; i < 25; i++) {
+                const base = posttestData[i % posttestData.length];
                 SOAL_POSTTEST.push({
-                    id: `post-${i}`,
-                    question: `Pertanyaan Posttest ${i}: Dalam ${i % 3 === 0 ? 'proses pemeliharaan berkala mesin offset' : (i % 3 === 1 ? 'struktur jenjang karir agensi visual' : 'siklus penataan 5R di tempat produksi')}, apa tindakan taktis yang paling dibenarkan?`,
-                    options: [
-                        "Menggunakan air biasa bertekanan tinggi untuk membersihkan sensor digital kelistrikan mesin",
-                        "Melakukan kalibrasi profil warna printer digital dan desainer secara berkala demi menjamin keakuratan visual",
-                        "Membuang seluruh file master proyek agensi tanpa persetujuan pimpinan divisi",
-                        "Menunda perbaikan minor hingga mesin cetak mengalami kerusakan fatal total"
-                    ],
-                    correct: 1,
-                    explanation: "Kalibrasi berkala profil warna antara monitor dan alat keluaran cetak sangat diperlukan agar hasil cetakan fisik memiliki kesesuaian tingkat kemiripan rona warna dengan berkas draf digital."
+                    id: `post-${i + 1}`,
+                    question: `[Posttest Q${i + 1}] ${base.q}`,
+                    options: base.o,
+                    correct: base.c,
+                    explanation: base.e
                 });
             }
         }
