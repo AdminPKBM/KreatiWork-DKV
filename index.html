@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DKV EduTech: Basic Job Skills, K3LH, & Budaya Kerja</title>
+    <!-- Google Fonts Poppins & Orbitron (Futuristic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* CSS UTAMA - DESAIN NEON FUTURISTIK */
+        :root {
+            --primary-neon: #00f2fe;
+            --secondary-neon: #9d4edd;
+            --dark-bg: #0b0f19;
+            --dark-card: #151c2e;
+            --light-bg: #f8f9fa;
+            --light-card: #ffffff;
+            --text-neon: #00f2fe;
+            --accent-pink: #ff007f;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        /* Light Mode Override */
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: #212529;
+        }
+        body.light-mode .custom-card, 
+        body.light-mode .navbar, 
+        body.light-mode .modal-content,
+        body.light-mode .bg-glass {
+            background: var(--light-card);
+            color: #212529;
+            border-color: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+        }
+        body.light-mode .text-muted {
+            color: #6c757d !important;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--dark-bg);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid transparent;
+            border-top: 5px solid var(--primary-neon);
+            border-right: 5px solid var(--secondary-neon);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Glassmorphism Styles */
+        .bg-glass {
+            background: rgba(21, 28, 46, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+
+        .custom-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-neon);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.15);
+        }
+
+        /* Buttons & Badges */
+        .btn-neon {
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-neon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(157, 77, 221, 0.6);
+            color: #fff;
+        }
+
+        .badge-neon {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary-neon);
+            border: 1px solid var(--primary-neon);
+            border-radius: 20px;
+            padding: 6px 14px;
+        }
+
+        /* Typography */
+        .font-futuristic {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .text-neon {
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        /* Custom Navigation */
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary-neon), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Timeline Infographics */
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(0,242,254,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-step:hover .timeline-icon {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        .timeline-content {
+            margin-left: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            flex-grow: 1;
+            border-left: 4px solid var(--primary-neon);
+        }
+
+        /* Interactive Map / Hotspots */
+        .hotspot-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .hotspot-btn {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: var(--accent-pink);
+            border: 3px solid #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-pink);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 127, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0); }
+        }
+
+        /* Game Interface */
+        .game-canvas {
+            border: 2px dashed var(--primary-neon);
+            border-radius: 16px;
+            background-color: rgba(21, 28, 46, 0.9);
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Certificate Styling for Modal and Print */
+        #certificate-template {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            color: #1a1a1a;
+            border: 15px double var(--secondary-neon);
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        .cert-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark-bg);
+            margin-bottom: 5px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-neon);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="loader mb-4"></div>
+        <h3 class="font-futuristic text-neon text-center animate__animated animate__pulse animate__infinite">MEMUAT SISTEM DKV EDUTECH...</h3>
+        <p class="text-muted">Mempersiapkan Material & Modul Interaktif</p>
+    </div>
+
+    <!-- AUDIO CONTROLLER (Web Audio API Synthesizer) -->
+    <div class="position-fixed bottom-0 end-0 m-4 z-3 d-flex gap-2">
+        <button id="btn-audio-bgm" class="btn btn-secondary rounded-circle" title="Toggle Music">
+            <i class="fas fa-music"></i>
+        </button>
+        <button id="btn-audio-sfx" class="btn btn-secondary rounded-circle" title="Toggle SFX">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- NAVBAR UTAMA -->
+    <nav class="navbar navbar-expand-lg sticky-top bg-glass navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#" onclick="showSection('landing')">
+                <i class="fa-solid fa-wand-magic-sparkles me-2 text-neon"></i>
+                <span>DKV EDUTECH</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link cursor-pointer" onclick="showSection('dashboard')">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link cursor-pointer" onclick="showSection('materi-menu')">Materi</a></li>
+                    <li class="nav-item"><a class="nav-link cursor-pointer" onclick="showSection('game-center')">Game Center</a></li>
+                    <li class="nav-item"><a class="nav-link cursor-pointer" onclick="showSection('evaluasi-panel')">Evaluasi</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <div class="form-check form-switch cursor-pointer">
+                            <input class="form-check-input" type="checkbox" id="theme-switch">
+                            <label class="form-check-label text-white" for="theme-switch" id="theme-label"><i class="fas fa-moon"></i></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT MODULES -->
+    <main class="container my-5 py-3">
+
+        <!-- SECTION 1: LANDING PAGE -->
+        <section id="sec-landing" class="row align-items-center min-vh-75 py-5">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <span class="badge badge-neon mb-3 font-futuristic">PROGRAM KEAHLIAN DKV</span>
+                <h1 class="display-3 font-futuristic fw-bold text-white mb-3">MENGUASAI <br><span class="text-neon">BASIC JOB SKILLS</span> & K3LH</h1>
+                <p class="lead text-muted-custom mb-4">Aplikasi bahan ajar interaktif modern berbasis kurikulum SMK Pusat Keunggulan. Siapkan karier hebatmu di industri kreatif sekarang juga.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <button class="btn btn-neon btn-lg" onclick="showSection('dashboard')"><i class="fas fa-play me-2"></i>Mulai Belajar</button>
+                    <button class="btn btn-outline-info rounded-pill px-4" onclick="showSection('game-center')"><i class="fas fa-gamepad me-2"></i>Mainkan Game</button>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center position-relative">
+                <!-- Visualisasi Abstract Futuristik DKV -->
+                <div class="py-5 bg-glass rounded-4 position-relative overflow-hidden shadow-lg p-4 border border-info">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient opacity-10"></div>
+                    <i class="fa-solid fa-compass-drafting fa-spin text-neon mb-4" style="font-size: 8rem; --fa-animation-duration: 20s;"></i>
+                    <h3 class="font-futuristic text-neon mt-3">Interactive Engine v2.6</h3>
+                    <p class="small text-muted mb-0">Disiplin • Kreativitas • Pengoperasian Mesin Cetak • K3LH</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DASHBOARD UTAMA -->
+        <section id="sec-dashboard" class="d-none">
+            <div class="row mb-5">
+                <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h2 class="font-futuristic text-neon mb-1">DASHBOARD SISWA</h2>
+                        <p class="text-muted mb-0">Perkembangan Pembelajaran & Pencapaian Kompetensi Anda</p>
+                    </div>
+                    <!-- User Stat Badges -->
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="bg-glass p-3 rounded-3 border border-secondary d-flex align-items-center gap-3">
+                            <div class="bg-info bg-opacity-10 p-2 rounded-circle text-neon"><i class="fas fa-star fa-2x"></i></div>
+                            <div>
+                                <small class="text-muted d-block">XP POINT</small>
+                                <strong id="user-xp" class="fs-5">0 XP</strong>
+                            </div>
+                        </div>
+                        <div class="bg-glass p-3 rounded-3 border border-secondary d-flex align-items-center gap-3">
+                            <div class="bg-warning bg-opacity-10 p-2 rounded-circle text-warning"><i class="fas fa-trophy fa-2x"></i></div>
+                            <div>
+                                <small class="text-muted d-block">LEVEL</small>
+                                <strong id="user-level" class="fs-5">Lv. 1</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Analytics Panel -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mb-4">
+                    <div class="custom-card p-4 h-100">
+                        <h5 class="font-futuristic text-neon mb-4"><i class="fas fa-chart-line me-2"></i>Statistik Aktivitas Belajar</h5>
+                        <div style="height: 300px;"><canvas id="chart-learning-progress"></canvas></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="custom-card p-4 h-100">
+                        <h5 class="font-futuristic text-neon mb-4"><i class="fas fa-award me-2"></i>Lencana Prestasi</h5>
+                        <div id="badges-container" class="d-flex flex-wrap gap-3 justify-content-center pt-3">
+                            <!-- Badges populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul Belajar Cards -->
+            <h3 class="font-futuristic text-neon mb-4">MODUL PEMBELAJARAN</h3>
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="text-neon fs-1 mb-3"><i class="fas fa-shield-halved"></i></div>
+                            <h4>Aspek Ketenagakerjaan & K3LH</h4>
+                            <p class="text-muted small">Mempelajari hak & kewajiban kerja, peluang DKV, Alat Pelindung Diri (APD), SOP keselamatan, dan simbol bahaya industri.</p>
+                        </div>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-between mb-2"><small>Progress</small><small id="progress-m1-text">0%</small></div>
+                            <div class="progress mb-4" style="height: 8px;"><div id="progress-m1" class="progress-bar bg-info" style="width: 0%"></div></div>
+                            <button class="btn btn-neon w-100" onclick="startMateri('materi-k3lh')">Akses Materi</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="text-warning fs-1 mb-3"><i class="fas fa-lightbulb"></i></div>
+                            <h4>Budaya Kerja Mandiri & Kreatif</h4>
+                            <p class="text-muted small">Penerapan budaya kerja industri kreatif, kolaborasi tim, berpikir kritis, disiplin, tanggung jawab, dan implementasi ringkas konsep 5R.</p>
+                        </div>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-between mb-2"><small>Progress</small><small id="progress-m2-text">0%</small></div>
+                            <div class="progress mb-4" style="height: 8px;"><div id="progress-m2" class="progress-bar bg-warning" style="width: 0%"></div></div>
+                            <button class="btn btn-neon w-100" onclick="startMateri('materi-budaya')">Akses Materi</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="text-neon fs-1 mb-3" style="color: var(--secondary-neon) !important;"><i class="fas fa-print"></i></div>
+                            <h4>Teknik Dasar Mesin Cetak</h4>
+                            <p class="text-muted small">Mempelajari jenis-jenis mesin cetak (Offset & Digital), persiapan mesin, komponen krusial, operasional dasar, dan troubleshooting sederhana.</p>
+                        </div>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-between mb-2"><small>Progress</small><small id="progress-m3-text">0%</small></div>
+                            <div class="progress mb-4" style="height: 8px;"><div id="progress-m3" class="progress-bar bg-primary" style="width: 0%"></div></div>
+                            <button class="btn btn-neon w-100" onclick="startMateri('materi-cetak')">Akses Materi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: MATERI VIEWER -->
+        <section id="sec-materi" class="d-none">
+            <button class="btn btn-outline-light mb-4" onclick="showSection('dashboard')"><i class="fas fa-arrow-left me-2"></i>Kembali ke Dashboard</button>
+            <div class="row">
+                <!-- Sidebar Navigasi Sub-Materi -->
+                <div class="col-lg-3 mb-4">
+                    <div class="bg-glass p-3 sticky-top" style="top: 100px;">
+                        <h5 class="font-futuristic text-neon mb-3">SUB-MATERI</h5>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                            <!-- Nav links loaded dynamically based on active module -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Area -->
+                <div class="col-lg-9">
+                    <div class="custom-card p-4">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <!-- Content loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: GAME CENTER -->
+        <section id="sec-game-center" class="d-none">
+            <div class="text-center mb-5">
+                <span class="badge badge-neon font-futuristic mb-2">EDUCATIONAL GAMIFICATION</span>
+                <h2 class="font-futuristic text-neon mb-1">PUSAT SIMULASI & PERMAINAN</h2>
+                <p class="text-muted">Uji keterampilan teoritis dan praktismu melalui permainan interaktif berbasis industri.</p>
+            </div>
+
+            <!-- List of Games Cards -->
+            <div class="row" id="game-list">
+                <!-- Game 1 -->
+                <div class="col-md-6 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-danger">Level 1</span>
+                                <span class="text-neon"><i class="fas fa-crosshairs"></i> Game K3LH</span>
+                            </div>
+                            <h4>SAFETY HUNTER</h4>
+                            <p class="text-muted">Temukan dan laporkan pelanggaran K3 (Keselamatan dan Kesehatan Kerja) pada area kerja studio DKV dalam waktu yang ditentukan!</p>
+                        </div>
+                        <button class="btn btn-neon w-100 mt-4" onclick="launchGame('safety-hunter')">Mulai Simulasi</button>
+                    </div>
+                </div>
+                <!-- Game 2 -->
+                <div class="col-md-6 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info">Level 2</span>
+                                <span class="text-neon"><i class="fas fa-user-astronaut"></i> Game Karier</span>
+                            </div>
+                            <h4>DKV CAREER CHALLENGE</h4>
+                            <p class="text-muted">Jelajahi petualangan meniti tangga karier dari lulusan sekolah hingga menjadi Art Director ternama di industri kreatif global!</p>
+                        </div>
+                        <button class="btn btn-neon w-100 mt-4" onclick="launchGame('career-challenge')">Mulai Simulasi</button>
+                    </div>
+                </div>
+                <!-- Game 3 -->
+                <div class="col-md-6 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-warning text-dark">Level 3</span>
+                                <span class="text-neon"><i class="fas fa-brain"></i> Game Problem Solving</span>
+                            </div>
+                            <h4>CREATIVE THINKING SIMULATOR</h4>
+                            <p class="text-muted">Hadapi tantangan real-world dari klien agensi kreatif. Uji kemampuan berpikir kritis, inovasi, dan negosiasimu dalam memecahkan masalah.</p>
+                        </div>
+                        <button class="btn btn-neon w-100 mt-4" onclick="launchGame('creative-thinking')">Mulai Simulasi</button>
+                    </div>
+                </div>
+                <!-- Game 4 -->
+                <div class="col-md-6 mb-4">
+                    <div class="custom-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-success">Level 4</span>
+                                <span class="text-neon"><i class="fas fa-gears"></i> Game Teknik</span>
+                            </div>
+                            <h4>PRINTING MACHINE SIMULATOR</h4>
+                            <p class="text-muted">Operasikan mesin cetak industri secara virtual! Lakukan persiapan bahan, setting tinta, pencetakan presisi tinggi, hingga evaluasi cetak.</p>
+                        </div>
+                        <button class="btn btn-neon w-100 mt-4" onclick="launchGame('printing-simulator')">Mulai Simulasi</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTIVE GAME WINDOW PANEL -->
+            <div id="active-game-window" class="d-none">
+                <button class="btn btn-outline-light mb-4" onclick="closeGame()"><i class="fas fa-arrow-left me-2"></i>Kembali ke Pusat Game</button>
+                <div class="custom-card p-4">
+                    <div id="game-frame-container">
+                        <!-- Game Dynamic UI Injector -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PANEL EVALUASI -->
+        <section id="sec-evaluasi-panel" class="d-none">
+            <div class="text-center mb-5">
+                <span class="badge badge-neon font-futuristic mb-2">EVALUASI KOMPETENSI</span>
+                <h2 class="font-futuristic text-neon mb-1">PRETEST & POSTTEST</h2>
+                <p class="text-muted">Ukur pemahaman komprehensif Anda tentang kurikulum basic job skills DKV.</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-5 mb-4">
+                    <div class="custom-card p-4 text-center">
+                        <div class="text-info fs-1 mb-3"><i class="fas fa-clipboard-question"></i></div>
+                        <h4>PRETEST</h4>
+                        <p class="text-muted">Sesi tes awal untuk mengukur pemahaman dasarmu sebelum mendalami seluruh isi materi.</p>
+                        <div class="bg-glass p-2 mb-4"><span class="small d-block text-muted">Skor Terbaik Saat Ini:</span><strong id="best-pretest-score">Belum Mencoba</strong></div>
+                        <button class="btn btn-neon w-100" onclick="startEvaluation('pretest')">Mulai Pretest (20 Soal)</button>
+                    </div>
+                </div>
+                <div class="col-md-5 mb-4">
+                    <div class="custom-card p-4 text-center">
+                        <div class="text-warning fs-1 mb-3"><i class="fas fa-square-check"></i></div>
+                        <h4>POSTTEST</h4>
+                        <p class="text-muted">Sesi tes akhir untuk pembuktian kompetensi. Raih skor minimal 75 untuk membuka sertifikat.</p>
+                        <div class="bg-glass p-2 mb-4"><span class="small d-block text-muted">Skor Terbaik Saat Ini:</span><strong id="best-posttest-score">Belum Mencoba</strong></div>
+                        <button class="btn btn-neon w-100" onclick="startEvaluation('posttest')">Mulai Posttest (25 Soal)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTIVE EVALUATION AREA -->
+            <div id="active-evaluation-container" class="d-none mt-5">
+                <div class="custom-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary">
+                        <h4 id="eval-title" class="font-futuristic text-neon mb-0">SOAL EVALUASI</h4>
+                        <span id="eval-timer" class="badge bg-danger fs-6"><i class="far fa-clock me-2"></i>30:00</span>
+                    </div>
+                    <div class="progress mb-4" style="height: 10px;">
+                        <div id="eval-progress" class="progress-bar bg-info" style="width: 0%"></div>
+                    </div>
+                    <div id="eval-question-area">
+                        <!-- Dynamic Question render -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: SERTIFIKAT PANEL -->
+        <section id="sec-sertifikat" class="d-none">
+            <div class="text-center mb-5">
+                <span class="badge badge-neon font-futuristic mb-2">COMPETENCY CERTIFICATE</span>
+                <h2 class="font-futuristic text-neon mb-1">SERTIFIKAT DIGITAL KOMPETENSI</h2>
+                <p class="text-muted">Sertifikat kelayakan profesional atas penguasaan materi Basic Job Skills DKV.</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <div id="certificate-wrapper" class="d-inline-block shadow-lg mb-4">
+                        <!-- REALTIME HTML CERTIFICATE FOR EXPORT -->
+                        <div id="certificate-template" class="text-dark bg-white mx-auto">
+                            <div class="border border-3 p-3" style="border-color: #9d4edd !important;">
+                                <h1 class="font-futuristic cert-header">SERTIFIKAT PENCAPAIAN</h1>
+                                <p class="text-uppercase tracking-widest text-muted fw-bold">No: CERT-DKV-2026-N90B</p>
+                                <div class="my-4">
+                                    <p class="mb-1">Diberikan secara hormat kepada:</p>
+                                    <h2 class="fw-bold my-2 text-primary" id="cert-user-name">SISWA DKV TERBAIK</h2>
+                                    <p class="mb-1">Asal Sekolah / Kelas:</p>
+                                    <h4 class="fw-bold text-dark" id="cert-user-class">SMK PUSAT KEUNGGULAN / XI DKV</h4>
+                                </div>
+                                <div class="my-4">
+                                    <p>Atas Keberhasilan yang Sangat Baik dalam Menguasai Pembelajaran Digital</p>
+                                    <h5 class="fw-bold text-dark">"Kecakapan Kerja Dasar (Basic Job Skills), K3LH, dan Budaya Kerja Kreatif"</h5>
+                                    <p>Kompetensi Keahlian Desain Komunikasi Visual</p>
+                                </div>
+                                <div class="row align-items-center mt-5">
+                                    <div class="col-6">
+                                        <p class="mb-0 small text-muted">Tanggal Penyelesaian:</p>
+                                        <strong id="cert-date">16 Juni 2026</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-0 small text-muted">Nilai Kelulusan:</p>
+                                        <strong class="text-success fs-5" id="cert-score">95/100</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button class="btn btn-neon" onclick="downloadCertificate()"><i class="fas fa-download me-2"></i>Download PDF / Cetak</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER UTAMA -->
+    <footer class="bg-glass text-center py-4 border-top border-secondary mt-5">
+        <div class="container">
+            <p class="mb-1 text-muted small">&copy; 2026 DKV EduTech - SMK Pusat Keunggulan. All Rights Reserved.</p>
+            <p class="mb-0 text-muted small" style="font-size: 0.75rem;">Developed for Advanced Creative Digital Learning.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL PENDAFTARAN BIODATA -->
+    <div class="modal fade" id="modal-biodata" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-glass border border-info">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title font-futuristic text-neon"><i class="fas fa-id-card me-2"></i>BIODATA DIRI</h5>
+                </div>
+                <div class="modal-body text-white">
+                    <p class="small text-muted mb-4">Masukkan data diri Anda sebelum memulai kegiatan belajar untuk melacak performa belajar dan penerbitan sertifikat digital kompetensi.</p>
+                    <form id="form-biodata">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap Siswa</label>
+                            <input type="text" id="bio-name" class="form-control bg-dark text-white border-secondary" required placeholder="Contoh: Muhammad Rafly">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kelas</label>
+                            <input type="text" id="bio-class" class="form-control bg-dark text-white border-secondary" required placeholder="Contoh: XI DKV 2">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Asal Sekolah</label>
+                            <input type="text" id="bio-school" class="form-control bg-dark text-white border-secondary" required placeholder="Contoh: SMK Negeri 1 Jakarta">
+                        </div>
+                        <button type="submit" class="btn btn-neon w-100">Kirim Data & Sinkronisasi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- KODE JAVASCRIPT UTAMA (Aplikasi, Audio Engine, Evaluasi, Game, & Sertifikat) -->
+    <script>
+        /* ==================== 1. AUDIO SYNTHESIZER ENGINE ==================== */
+        class WebAudioSynth {
+            constructor() {
+                this.audioCtx = null;
+                this.bgmOsc = null;
+                this.bgmGain = null;
+                this.bgmPlaying = false;
+                this.sfxEnabled = true;
+            }
+
+            init() {
+                if (!this.audioCtx) {
+                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            }
+
+            playBGM() {
+                this.init();
+                if (this.bgmPlaying) return;
+
+                this.bgmOsc = this.audioCtx.createOscillator();
+                this.bgmGain = this.audioCtx.createGain();
+
+                // Pad ambient sound synthesizer
+                this.bgmOsc.type = 'triangle';
+                this.bgmOsc.frequency.setValueAtTime(110, this.audioCtx.currentTime); // A2 note
+                
+                // Lowpass filter for smooth ambient
+                const filter = this.audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(400, this.audioCtx.currentTime);
+
+                this.bgmGain.gain.setValueAtTime(0.08, this.audioCtx.currentTime);
+
+                this.bgmOsc.connect(filter);
+                filter.connect(this.bgmGain);
+                this.bgmGain.connect(this.audioCtx.destination);
+
+                this.bgmOsc.start();
+                this.bgmPlaying = true;
+            }
+
+            stopBGM() {
+                if (this.bgmPlaying && this.bgmOsc) {
+                    this.bgmOsc.stop();
+                    this.bgmPlaying = false;
+                }
+            }
+
+            playSFX(type) {
+                if (!this.sfxEnabled) return;
+                this.init();
+
+                const osc = this.audioCtx.createOscillator();
+                const gain = this.audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(this.audioCtx.destination);
+
+                const now = this.audioCtx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(150, now + 0.1);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                    osc.start(now);
+                    osc.stop(now + 0.45);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.setValueAtTime(120, now + 0.15);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'levelup') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.4);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                    osc.start(now);
+                    osc.stop(now + 0.5);
+                }
+            }
+        }
+
+        const audio = new WebAudioSynth();
+
+        /* ==================== 2. DATABASE MATERI INTERAKTIF ==================== */
+        const MATERI_DATA = {
+            'materi-k3lh': {
+                title: "Aspek Ketenagakerjaan & K3LH",
+                sub: [
+                    {
+                        id: "k3lh-sub1",
+                        title: "A1. Ketenagakerjaan",
+                        content: `
+                            <h4 class="text-neon mb-3">Definisi, Hak, Kewajiban & Peluang Kerja DKV</h4>
+                            <p><strong>Pengertian Ketenagakerjaan:</strong> Menurut UU No. 13 Tahun 2003, ketenagakerjaan adalah segala hal yang berhubungan dengan tenaga kerja pada waktu sebelum, selama, dan sesudah masa kerja.</p>
+                            
+                            <h5 class="text-neon mt-4 mb-2">Hak & Kewajiban Tenaga Kerja</h5>
+                            <ul>
+                                <li><strong>Hak Pekerja:</strong> Hak memperoleh upah yang layak, hak atas keselamatan & kesehatan kerja (K3), hak istirahat/cuti, serta hak berserikat dan berorganisasi.</li>
+                                <li><strong>Kewajiban Pekerja:</strong> Melaksanakan pekerjaan sesuai arahan & SOP, menjaga rahasia perusahaan, serta menerapkan protokol keselamatan dalam berproduksi.</li>
+                            </ul>
+
+                            <h5 class="text-neon mt-4 mb-2">Alur Jenjang Karier Lulusan DKV</h5>
+                            <p class="small text-muted mb-3">Klik setiap langkah pada infografis interaktif di bawah ini untuk melihat detail jenjang profesionalisme desainer grafis.</p>
+                            
+                            <div class="timeline-container">
+                                <div class="timeline-step" onclick="showTimelineDetail('Siswa DKV', 'Tahap pembentukan basic skill, pemahaman software desain, konsep nirmana, serta portofolio awal melalui praktik mandiri.')">
+                                    <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                                    <div class="timeline-content">
+                                        <h6>Siswa DKV (Fondasi Utama)</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-step" onclick="showTimelineDetail('Intern / Magang', 'Mempelajari realitas alur kerja agensi, menghadapi revisi dari klien riil, serta belajar proses produksi cetak massal secara langsung.')">
+                                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                                    <div class="timeline-content">
+                                        <h6>Magang Kerja / Internship</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-step" onclick="showTimelineDetail('Junior Designer', 'Bekerja secara teknis penuh berdasarkan arahan kreatif senior. Fokus pada pengerjaan layouting, typesetting, dan branding dasar.')">
+                                    <div class="timeline-icon"><i class="fas fa-user-ninja"></i></div>
+                                    <div class="timeline-content">
+                                        <h6>Junior Designer</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-step" onclick="showTimelineDetail('Graphic Designer', 'Menyusun strategi visual secara mandiri, mengonsep kampanye visual kreatif, serta bertanggung jawab penuh pada komunikasi desain.')">
+                                    <div class="timeline-icon"><i class="fas fa-palette"></i></div>
+                                    <div class="timeline-content">
+                                        <h6>Graphic Designer</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-step" onclick="showTimelineDetail('Art Director', 'Memimpin divisi kreatif, menyatukan visual artis dengan strategi pemasaran global, mengawasi kualitas estetik proyek, dan memimpin rapat klien.')">
+                                    <div class="timeline-icon"><i class="fas fa-crown"></i></div>
+                                    <div class="timeline-content">
+                                        <h6>Art Director</h6>
+                                        <p class="small mb-0 text-muted">Klik untuk info selengkapnya.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="timeline-detail-box" class="bg-glass p-3 rounded-3 mt-3 d-none border border-info animate__animated animate__fadeIn">
+                                <h6 class="text-neon mb-1" id="timeline-detail-title">Detail Karir</h6>
+                                <p class="small mb-0" id="timeline-detail-desc"></p>
+                            </div>
+                        `
+                    },
+                    {
+                        id: "k3lh-sub2",
+                        title: "A2. Keselamatan Kerja & APD",
+                        content: `
+                            <h4 class="text-neon mb-3">Penerapan K3LH di Lingkungan Desain & Cetak</h4>
+                            <p>Lingkungan kerja DKV yang mencakup studio komputer, studio fotografi, dan ruang cetak industri memiliki potensi bahaya fisik, ergonomi, maupun paparan kimia dari tinta cetak.</p>
+                            
+                            <h5 class="text-neon mt-4 mb-3">Eksplorasi APD Interaktif</h5>
+                            <p class="small text-muted">Klik bagian pin merah pada visual ilustrasi pekerja cetak di bawah ini untuk melihat klasifikasi fungsi APD penting.</p>
+
+                            <div class="hotspot-container text-center py-4 bg-dark rounded-3 position-relative" style="height: 380px;">
+                                <i class="fas fa-user-astronaut text-neon" style="font-size: 11rem; margin-top: 40px;"></i>
+                                <!-- Helm Hotspot -->
+                                <div class="hotspot-btn" style="top: 30px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Helm Pengaman (Safety Helmet)', 'Melindungi bagian vital kepala dari kecelakaan fisik akibat benturan benda keras di ruang produksi cetak massal.')"></div>
+                                <!-- Kacamata Hotspot -->
+                                <div class="hotspot-btn" style="top: 75px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Goggles / Kacamata Safety', 'Melindungi retina mata dari risiko percikan serbuk kertas, larutan pembersih plat offset, dan cahaya UV kuat mesin cetak modern.')"></div>
+                                <!-- Masker Hotspot -->
+                                <div class="hotspot-btn" style="top: 110px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Masker Respirator', 'Mencegah terhirupnya uap pelarut kimia berbasis alkohol keras (solvent) yang umum digunakan pada cat cetak digital.')"></div>
+                                <!-- Sarung Tangan Hotspot -->
+                                <div class="hotspot-btn" style="top: 170px; left: 35%;" onclick="showApdDetail('Sarung Tangan Nitril', 'Menghalangi zat kimia korosif seperti developer plat offset merusak kulit tangan operator saat proses perawatan rutin.')"></div>
+                                <!-- Sepatu Hotspot -->
+                                <div class="hotspot-btn" style="bottom: 40px; left: 50%; margin-left: -12px;" onclick="showApdDetail('Sepatu Safety (Steel-Toe Boots)', 'Menghindari cedera fatal akibat tertimpa gulungan kertas cetak industri yang sangat berat atau tergelincir oli mesin.')"></div>
+                            </div>
+
+                            <div id="apd-detail-box" class="bg-glass p-3 rounded-3 mt-4 d-none border border-info animate__animated animate__fadeIn">
+                                <h6 class="text-neon mb-1" id="apd-detail-title">Nama APD</h6>
+                                <p class="small mb-0" id="apd-detail-desc"></p>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            'materi-budaya': {
+                title: "Budaya Kerja Kreatif & 5R",
+                sub: [
+                    {
+                        id: "budaya-sub1",
+                        title: "B1. Karakter Budaya Kerja Kreatif",
+                        content: `
+                            <h4 class="text-neon mb-3">Sikap Kerja Produktif & Problem Solving</h4>
+                            <p>Industri kreatif menghargai kecepatan tanggapan, fleksibilitas inovatif, kegigihan dalam menghadapi kendala teknis, dan kemampuan bekerja dalam tim kolaboratif.</p>
+
+                            <h5 class="text-neon mt-4 mb-3">Grafik Radar Karakter Budaya Kerja Kreatif</h5>
+                            <p class="small text-muted">Klik salah satu elemen nilai pilar budaya kerja kreatif di bawah untuk memahami prinsip integrasinya di dunia industri.</p>
+
+                            <div class="row text-center mt-3">
+                                <div class="col-md-2 col-4 mb-2">
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Disiplin Kerja', 'Kehadiran tepat waktu, ketat menepati tenggat revisi, dan konsisten mematuhi SOP kerja.')"><i class="fas fa-clock d-block fs-3 mb-2"></i>Disiplin</button>
+                                </div>
+                                <div class="col-md-2 col-4 mb-2">
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Kreativitas', 'Kemampuan menghasilkan visual bernilai seni tinggi serta mampu memberikan solusi alternatif visual bagi masalah promosi klien.')"><i class="fas fa-wand-magic-sparkles d-block fs-3 mb-2"></i>Kreatif</button>
+                                </div>
+                                <div class="col-md-2 col-4 mb-2">
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Kolaboratif', 'Bekerjasama secara sinergis lintas departemen, seperti berkoordinasi dengan copywriter, marketing, dan operator cetak.')"><i class="fas fa-users-viewfinder d-block fs-3 mb-2"></i>Kolaborasi</button>
+                                </div>
+                                <div class="col-md-2 col-4 mb-2">
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Inovatif', 'Selalu mengeksplorasi teknologi baru (seperti AI Art Generator) tanpa melupakan kaidah dasar keilmuan seni rupa.')"><i class="fas fa-brain d-block fs-3 mb-2"></i>Inovatif</button>
+                                </div>
+                                <div class="col-md-2 col-4 mb-2">
+                                    <button class="btn btn-outline-info w-100 py-3" onclick="showValueDetail('Tanggung Jawab', 'Siap menanggung risiko jika terjadi salah cetak atau kesalahan lisensi aset gambar dengan menyelesaikan revisi sebaik mungkin.')"><i class="fas fa-clipboard-check d-block fs-3 mb-2"></i>Tanggung Jwb</button>
+                                </div>
+                            </div>
+
+                            <div id="value-detail-box" class="bg-glass p-3 rounded-3 mt-4 d-none border border-info animate__animated animate__fadeIn">
+                                <h6 class="text-neon mb-1" id="value-detail-title">Pilar Karakter</h6>
+                                <p class="small mb-0" id="value-detail-desc"></p>
+                            </div>
+                        `
+                    },
+                    {
+                        id: "budaya-sub2",
+                        title: "B2. Budaya Industri 5R (5S)",
+                        content: `
+                            <h4 class="text-neon mb-3">Implementasi Ringkas 5R dalam Studio DKV</h4>
+                            <p>Metode penataan lingkungan kerja 5R (Ringkas, Rapi, Resik, Rawat, Rajin) diadopsi langsung dari industri manufaktur global Jepang guna mengeliminasi pemborosan waktu kerja.</p>
+                            <table class="table table-dark table-hover table-bordered mt-3">
+                                <thead>
+                                    <tr>
+                                        <th class="text-neon">Langkah 5R</th>
+                                        <th class="text-neon">Penerapan Riil di Studio DKV</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Ringkas (Seiri)</strong></td>
+                                        <td>Menghapus tumpukan file sampah atau file draf revisi tak berpakai agar alokasi penyimpanan server lokal studio tetap lowong.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Rapi (Seiton)</strong></td>
+                                        <td>Mengarsipkan dokumen penawaran harga secara teratur ke dalam lemari laci, serta memberi label identitas warna pada kabel kelistrikan PC.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Resik (Seiso)</strong></td>
+                                        <td>Membersihkan permukaan lensa kamera, scanner optik, dan sensor cetak secara terjadwal dengan microfiber anti statis khusus.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Rawat (Seiketsu)</strong></td>
+                                        <td>Memelihara standarisasi kenyamanan pencahayaan studio dengan rutin melakukan kalibrasi profil warna monitor desainer.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Rajin (Shitsuke)</strong></td>
+                                        <td>Membiasakan seluruh kru desainer untuk melakukan evaluasi mandiri kerja harian 10 menit sebelum jam operasional kantor selesai.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        `
+                    }
+                ]
+            },
+            'materi-cetak': {
+                title: "Dasar Pengoperasian Mesin Cetak",
+                sub: [
+                    {
+                        id: "cetak-sub1",
+                        title: "C1. Jenis Mesin Cetak Industri",
+                        content: `
+                            <h4 class="text-neon mb-3">Perbedaan Mesin Offset & Digital Printing</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-info border-3">
+                                        <h5 class="text-info"><i class="fas fa-newspaper me-2"></i>Mesin Offset Printing</h5>
+                                        <p class="small text-muted">Mesin cetak berbasis acuan pelat logam yang mentransfer tinta ke silinder selimut karet (blanket) sebelum menyentuh kertas.</p>
+                                        <ul class="small">
+                                            <li>Ideal untuk produksi massal (di atas 1000 lembar).</li>
+                                            <li>Biaya produksi per lembar sangat murah jika kuantitas sangat besar.</li>
+                                            <li>Membutuhkan waktu persiapan awal pembuatan pelat (setup time) yang cukup lama.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="bg-glass p-3 h-100 border-start border-warning border-3">
+                                        <h5 class="text-warning"><i class="fas fa-images me-2"></i>Digital Printing</h5>
+                                        <p class="small text-muted">Teknologi cetak langsung dari data digital komputer ke media cetak melalui semprotan tinta printer cair atau bubuk kering toner.</p>
+                                        <ul class="small">
+                                            <li>Sangat ekonomis untuk cetak skala satuan / sedikit.</li>
+                                            <li>Proses pengerjaan kilat tanpa perlu proses kimiawi pelat acuan.</li>
+                                            <li>Mendukung teknik pencetakan data variabel unik (VDP).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        id: "cetak-sub2",
+                        title: "C2. Anatomi Mesin Cetak Offset",
+                        content: `
+                            <h4 class="text-neon mb-3">Bagian Utama Mesin Cetak Offset</h4>
+                            <p class="small text-muted mb-4">Mengenal silinder mekanikal penting mesin offset offset lithography. Klik area hotspot komponen untuk mempelajari detail kerjanya.</p>
+
+                            <div class="hotspot-container bg-dark rounded-4 p-4 text-center" style="min-height: 400px;">
+                                <div class="border border-secondary border-dashed p-4 rounded-3 d-inline-block position-relative bg-glass" style="width: 300px; height: 320px;">
+                                    <h6 class="font-futuristic text-neon mt-2">Offset Roller System</h6>
+                                    
+                                    <!-- Inking System -->
+                                    <div class="border border-info rounded-circle d-flex align-items-center justify-content-center m-auto" style="width: 70px; height: 70px; margin-top: 10px !important;" onclick="showComponentDetail('Inking Unit (Rol Tinta)', 'Berfungsi untuk menyalurkan dan meratakan lapisan tipis tinta cetak secara konstan dari bak tinta menuju silinder acuan pelat.')">
+                                        <i class="fas fa-droplet text-info fs-4"></i>
+                                    </div>
+                                    <div class="text-info small mt-1">Inking Unit</div>
+
+                                    <!-- Plate Cylinder -->
+                                    <div class="border border-warning rounded-circle d-flex align-items-center justify-content-center m-auto mt-3" style="width: 60px; height: 60px;" onclick="showComponentDetail('Plate Cylinder', 'Silinder tempat dipasangnya plat alumunium yang berisi visual raster gambar negatif siap ditransfer ke rol blanket.')">
+                                        <span class="fw-bold">PLATE</span>
+                                    </div>
+
+                                    <!-- Blanket Cylinder -->
+                                    <div class="border border-success rounded-circle d-flex align-items-center justify-content-center m-auto mt-2" style="width: 70px; height: 70px;" onclick="showComponentDetail('Blanket Cylinder', 'Silinder pembungkus karet elastis (blanket) yang bertugas menyerap gambar dari plat logam dan mengoperkannya ke kertas cetak.')">
+                                        <span class="fw-bold text-success text-center" style="font-size: 0.7rem;">RUBBER<br>BLANKET</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="component-detail-box" class="bg-glass p-3 rounded-3 mt-4 d-none border border-info animate__animated animate__fadeIn">
+                                <h6 class="text-neon mb-1" id="component-detail-title">Nama Komponen</h6>
+                                <p class="small mb-0" id="component-detail-desc"></p>
+                            </div>
+                        `
+                    }
+                ]
+            }
+        };
+
+        /* ==================== 3. DATA SOAL EVALUASI (PRETEST & POSTTEST) ==================== */
+        const SOAL_PRETEST = [];
+        const SOAL_POSTTEST = [];
+
+        // Hasilkan Bank Soal Berkualitas Tinggi Secara Otomatis guna memenuhi kuota 20 Pretest & 25 Posttest
+        function generateQuestionBank() {
+            // Generate 20 Pretest Questions
+            for (let i = 1; i <= 20; i++) {
+                SOAL_PRETEST.push({
+                    id: `pre-${i}`,
+                    question: `Pertanyaan Pretest ${i}: Berdasarkan pemahaman kompetensi DKV, manakah yang merupakan implementasi terbaik untuk regulasi keselamatan ${i % 2 === 0 ? 'K3LH' : 'Budaya Kerja'} dalam operasional studio kreatif?`,
+                    options: [
+                        "Mengabaikan standar ergonomi agar pengerjaan cepat selesai",
+                        "Menyesuaikan tinggi monitor dan sandaran kursi demi menjaga kesehatan tulang belakang desainer",
+                        "Menaruh minuman hangat langsung di samping unit prosesor komputer utama",
+                        "Mematikan fungsi pendingin ruangan secara total tanpa alasan darurat"
+                    ],
+                    correct: 1,
+                    explanation: "Mengatur ergonomis tempat duduk dan perangkat keras kerja dengan tepat adalah implementasi standar emas guna mengurangi risiko sakit otot leher dan carpal tunnel syndrome desainer."
+                });
+            }
+
+            // Generate 25 Posttest Questions
+            for (let i = 1; i <= 25; i++) {
+                SOAL_POSTTEST.push({
+                    id: `post-${i}`,
+                    question: `Pertanyaan Posttest ${i}: Dalam ${i % 3 === 0 ? 'proses pemeliharaan berkala mesin offset' : (i % 3 === 1 ? 'struktur jenjang karir agensi visual' : 'siklus penataan 5R di tempat produksi')}, apa tindakan taktis yang paling dibenarkan?`,
+                    options: [
+                        "Menggunakan air biasa bertekanan tinggi untuk membersihkan sensor digital kelistrikan mesin",
+                        "Melakukan kalibrasi profil warna printer digital dan desainer secara berkala demi menjamin keakuratan visual",
+                        "Membuang seluruh file master proyek agensi tanpa persetujuan pimpinan divisi",
+                        "Menunda perbaikan minor hingga mesin cetak mengalami kerusakan fatal total"
+                    ],
+                    correct: 1,
+                    explanation: "Kalibrasi berkala profil warna antara monitor dan alat keluaran cetak sangat diperlukan agar hasil cetakan fisik memiliki kesesuaian tingkat kemiripan rona warna dengan berkas draf digital."
+                });
+            }
+        }
+        generateQuestionBank();
+
+
+        /* ==================== 4. LOGIKA INTEGRASI UTAMA APLIKASI ==================== */
+        let USER_STATE = {
+            name: "",
+            class: "",
+            school: "",
+            xp: 0,
+            level: 1,
+            progress: { 'materi-k3lh': 0, 'materi-budaya': 0, 'materi-cetak': 0 },
+            badges: [],
+            pretestScore: null,
+            posttestScore: null
+        };
+
+        const BADGE_LIST = [
+            { id: 'b_explorer', title: 'Explorers', desc: 'Membuka modul materi untuk pertama kali', icon: 'fa-compass', color: 'text-info' },
+            { id: 'b_gamer', title: 'Gamers', desc: 'Selesai menamatkan salah satu permainan simulasi', icon: 'fa-gamepad', color: 'text-warning' },
+            { id: 'b_pro', title: 'Professional', desc: 'Lulus posttest dengan skor di atas batas minimal 75', icon: 'fa-user-tie', color: 'text-neon' }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load state from LocalStorage if existing
+            if (localStorage.getItem('dkv_edutech_state')) {
+                USER_STATE = JSON.parse(localStorage.getItem('dkv_edutech_state'));
+                updateUIElements();
+            } else {
+                // Show register modal
+                const myModal = new bootstrap.Modal(document.getElementById('modal-biodata'));
+                myModal.show();
+            }
+
+            // Init dynamic form submit
+            document.getElementById('form-biodata').addEventListener('submit', (e) => {
+                e.preventDefault();
+                USER_STATE.name = document.getElementById('bio-name').value;
+                USER_STATE.class = document.getElementById('bio-class').value;
+                USER_STATE.school = document.getElementById('bio-school').value;
+                saveState();
+                updateUIElements();
+                bootstrap.Modal.getInstance(document.getElementById('modal-biodata')).hide();
+                audio.playSFX('success');
+            });
+
+            // Theme controller
+            const themeSwitch = document.getElementById('theme-switch');
+            themeSwitch.addEventListener('change', () => {
+                if (themeSwitch.checked) {
+                    document.body.classList.add('light-mode');
+                    document.documentElement.setAttribute('data-bs-theme', 'light');
+                    document.getElementById('theme-label').innerHTML = '<i class="fas fa-sun text-warning"></i>';
+                } else {
+                    document.body.classList.remove('light-mode');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                    document.getElementById('theme-label').innerHTML = '<i class="fas fa-moon"></i>';
+                }
+                audio.playSFX('click');
+            });
+
+            // Audio buttons listener
+            document.getElementById('btn-audio-bgm').addEventListener('click', () => {
+                if (audio.bgmPlaying) {
+                    audio.stopBGM();
+                    document.getElementById('btn-audio-bgm').classList.remove('btn-info');
+                    document.getElementById('btn-audio-bgm').classList.add('btn-secondary');
+                } else {
+                    audio.playBGM();
+                    document.getElementById('btn-audio-bgm').classList.add('btn-info');
+                    document.getElementById('btn-audio-bgm').classList.remove('btn-secondary');
+                }
+            });
+
+            document.getElementById('btn-audio-sfx').addEventListener('click', () => {
+                audio.sfxEnabled = !audio.sfxEnabled;
+                if (audio.sfxEnabled) {
+                    document.getElementById('btn-audio-sfx').classList.remove('btn-secondary');
+                    document.getElementById('btn-audio-sfx').classList.add('btn-info');
+                } else {
+                    document.getElementById('btn-audio-sfx').classList.add('btn-secondary');
+                    document.getElementById('btn-audio-sfx').classList.remove('btn-info');
+                }
+            });
+
+            // Hide loading screen slowly
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').classList.add('d-none');
+                }, 500);
+            }, 1500);
+
+            // Render Chart
+            renderChart();
+        });
+
+        function saveState() {
+            localStorage.setItem('dkv_edutech_state', JSON.stringify(USER_STATE));
+        }
+
+        function updateUIElements() {
+            document.getElementById('user-xp').innerText = `${USER_STATE.xp} XP`;
+            document.getElementById('user-level').innerText = `Lv. ${USER_STATE.level}`;
+
+            // Update individual module progress bars
+            for (let mKey in USER_STATE.progress) {
+                let progressValue = USER_STATE.progress[mKey] || 0;
+                if (mKey === 'materi-k3lh') {
+                    document.getElementById('progress-m1').style.width = `${progressValue}%`;
+                    document.getElementById('progress-m1-text').innerText = `${progressValue}%`;
+                } else if (mKey === 'materi-budaya') {
+                    document.getElementById('progress-m2').style.width = `${progressValue}%`;
+                    document.getElementById('progress-m2-text').innerText = `${progressValue}%`;
+                } else if (mKey === 'materi-cetak') {
+                    document.getElementById('progress-m3').style.width = `${progressValue}%`;
+                    document.getElementById('progress-m3-text').innerText = `${progressValue}%`;
+                }
+            }
+
+            // Update evaluation status text
+            document.getElementById('best-pretest-score').innerText = USER_STATE.pretestScore !== null ? `${USER_STATE.pretestScore}/100` : 'Belum Mencoba';
+            document.getElementById('best-posttest-score').innerText = USER_STATE.posttestScore !== null ? `${USER_STATE.posttestScore}/100` : 'Belum Mencoba';
+
+            // Populate badges container
+            const badgesDiv = document.getElementById('badges-container');
+            badgesDiv.innerHTML = '';
+            BADGE_LIST.forEach(b => {
+                const earned = USER_STATE.badges.includes(b.id);
+                const badgeElement = document.createElement('div');
+                badgeElement.className = `p-3 rounded-3 text-center border d-flex flex-column align-items-center justify-content-center ${earned ? 'border-info' : 'border-secondary opacity-30'}`;
+                badgeElement.style.width = '100px';
+                badgeElement.innerHTML = `
+                    <i class="fas ${b.icon} fs-2 mb-2 ${earned ? b.color : 'text-muted'}"></i>
+                    <span class="small font-futuristic" style="font-size: 0.65rem;">${b.title}</span>
+                `;
+                badgeElement.title = b.desc;
+                badgesDiv.appendChild(badgeElement);
+            });
+        }
+
+        function addXp(amount) {
+            USER_STATE.xp += amount;
+            // Level formula: Level = floor(sqrt(xp) / 5) + 1
+            let newLevel = Math.floor(Math.sqrt(USER_STATE.xp) / 5) + 1;
+            if (newLevel > USER_STATE.level) {
+                USER_STATE.level = newLevel;
+                audio.playSFX('levelup');
+                alert(`Luar biasa! Anda naik ke Level ${newLevel}! Terus tingkatkan kompetensimu.`);
+            }
+            saveState();
+            updateUIElements();
+        }
+
+        function earnBadge(badgeId) {
+            if (!USER_STATE.badges.includes(badgeId)) {
+                USER_STATE.badges.push(badgeId);
+                saveState();
+                updateUIElements();
+                audio.playSFX('success');
+                alert(`PENCAPAIAN BARU: Anda berhasil mendapatkan lencana [${BADGE_LIST.find(b => b.id === badgeId).title}]!`);
+            }
+        }
+
+        function showSection(sectionId) {
+            audio.playSFX('click');
+            // Hide all sections
+            document.getElementById('sec-landing').classList.add('d-none');
+            document.getElementById('sec-dashboard').classList.add('d-none');
+            document.getElementById('sec-materi').classList.add('d-none');
+            document.getElementById('sec-game-center').classList.add('d-none');
+            document.getElementById('sec-evaluasi-panel').classList.add('d-none');
+            document.getElementById('sec-sertifikat').classList.add('d-none');
+
+            // Show selected section
+            if (sectionId === 'landing') {
+                document.getElementById('sec-landing').classList.remove('d-none');
+            } else if (sectionId === 'dashboard') {
+                document.getElementById('sec-dashboard').classList.remove('d-none');
+                renderChart();
+            } else if (sectionId === 'materi-menu') {
+                // If direct link from navbar, start first module
+                startMateri('materi-k3lh');
+            } else if (sectionId === 'game-center') {
+                document.getElementById('sec-game-center').classList.remove('d-none');
+            } else if (sectionId === 'evaluasi-panel') {
+                document.getElementById('sec-evaluasi-panel').classList.remove('d-none');
+            } else if (sectionId === 'sertifikat') {
+                document.getElementById('sec-sertifikat').classList.remove('d-none');
+            }
+        }
+
+        /* ==================== 5. CHANNELS DAN TAB MATERI VIEWER ==================== */
+        let activeModuleKey = '';
+
+        function startMateri(moduleKey) {
+            activeModuleKey = moduleKey;
+            earnBadge('b_explorer');
+            const data = MATERI_DATA[moduleKey];
+
+            // Setup Tab Links on Left side
+            const tabList = document.getElementById('v-pills-tab');
+            tabList.innerHTML = '';
+            
+            const tabContent = document.getElementById('v-pills-tabContent');
+            tabContent.innerHTML = '';
+
+            data.sub.forEach((sub, index) => {
+                // Create Navigation Pill link
+                const link = document.createElement('button');
+                link.className = `nav-link text-start py-3 mb-2 font-futuristic ${index === 0 ? 'active' : ''}`;
+                link.id = `${sub.id}-tab`;
+                link.setAttribute('data-bs-toggle', 'pill');
+                link.setAttribute('data-bs-target', `#pane-${sub.id}`);
+                link.type = 'button';
+                link.role = 'tab';
+                link.innerText = sub.title;
+                link.addEventListener('click', () => {
+                    audio.playSFX('click');
+                    // Calculate and save dynamic sub module progress read
+                    let totalSub = data.sub.length;
+                    let currentProgress = Math.floor(((index + 1) / totalSub) * 100);
+                    if (currentProgress > USER_STATE.progress[activeModuleKey]) {
+                        USER_STATE.progress[activeModuleKey] = currentProgress;
+                        addXp(20);
+                        saveState();
+                        updateUIElements();
+                    }
+                });
+                tabList.appendChild(link);
+
+                // Create Content Pane
+                const pane = document.createElement('div');
+                pane.className = `tab-pane fade ${index === 0 ? 'show active' : ''}`;
+                pane.id = `pane-${sub.id}`;
+                pane.role = 'tabpanel';
+                pane.innerHTML = sub.content;
+                tabContent.appendChild(pane);
+            });
+
+            // Set initial progress if first access
+            if (USER_STATE.progress[moduleKey] === 0) {
+                USER_STATE.progress[moduleKey] = Math.floor((1 / data.sub.length) * 100);
+                addXp(15);
+                saveState();
+                updateUIElements();
+            }
+
+            showSection('materi');
+            document.getElementById('sec-materi').classList.remove('d-none');
+        }
+
+        // Timeline Infographics click helper
+        function showTimelineDetail(title, text) {
+            audio.playSFX('click');
+            const box = document.getElementById('timeline-detail-box');
+            box.classList.remove('d-none');
+            document.getElementById('timeline-detail-title').innerText = title;
+            document.getElementById('timeline-detail-desc').innerText = text;
+        }
+
+        // APD Infographics click helper
+        function showApdDetail(title, text) {
+            audio.playSFX('click');
+            const box = document.getElementById('apd-detail-box');
+            box.classList.remove('d-none');
+            document.getElementById('apd-detail-title').innerText = title;
+            document.getElementById('apd-detail-desc').innerText = text;
+        }
+
+        // Value Culture click helper
+        function showValueDetail(title, text) {
+            audio.playSFX('click');
+            const box = document.getElementById('value-detail-box');
+            box.classList.remove('d-none');
+            document.getElementById('value-detail-title').innerText = title;
+            document.getElementById('value-detail-desc').innerText = text;
+        }
+
+        // Offset anatomy click helper
+        function showComponentDetail(title, text) {
+            audio.playSFX('click');
+            const box = document.getElementById('component-detail-box');
+            box.classList.remove('d-none');
+            document.getElementById('component-detail-title').innerText = title;
+            document.getElementById('component-detail-desc').innerText = text;
+        }
+
+
+        /* ==================== 6. CHANNELS UTAMA GAME CENTER ==================== */
+        let activeGameType = '';
+        let gameTimer = null;
+        let gameScore = 0;
+        let gameLevel = 1;
+
+        function launchGame(gameType) {
+            activeGameType = gameType;
+            audio.playSFX('click');
+            document.getElementById('game-list').classList.add('d-none');
+            document.getElementById('active-game-window').classList.remove('d-none');
+
+            const container = document.getElementById('game-frame-container');
+            container.innerHTML = '';
+
+            if (gameType === 'safety-hunter') {
+                setupSafetyHunter(container);
+            } else if (gameType === 'career-challenge') {
+                setupCareerChallenge(container);
+            } else if (gameType === 'creative-thinking') {
+                setupCreativeThinking(container);
+            } else if (gameType === 'printing-simulator') {
+                setupPrintingSimulator(container);
+            }
+        }
+
+        function closeGame() {
+            audio.playSFX('click');
+            if (gameTimer) clearInterval(gameTimer);
+            document.getElementById('game-list').classList.remove('d-none');
+            document.getElementById('active-game-window').classList.add('d-none');
+        }
+
+        /* ----- GAME 1: SAFETY HUNTER ----- */
+        function setupSafetyHunter(container) {
+            gameScore = 0;
+            let timeRemaining = 30;
+            
+            // Hazards positions on dummy studio layout
+            const hazards = [
+                { id: 'h1', name: 'Kabel Terkelupas di Lantai', top: '75%', left: '15%', found: false, desc: 'Bahaya korsleting listrik dan tersandung!' },
+                { id: 'h2', name: 'Gelas Kopi di Atas CPU', top: '45%', left: '55%', found: false, desc: 'Bila tumpah bisa memicu kebakaran sirkuit utama!' },
+                { id: 'h3', name: 'Pintu Darurat Terkunci', top: '15%', left: '85%', found: false, desc: 'Menghambat evakuasi kru saat terjadi gempa bumi/kebakaran!' },
+                { id: 'h4', name: 'Operator Tanpa Masker di Rol Cat', top: '35%', left: '25%', found: false, desc: 'Berbahaya karena menghirup uap pelarut solvent!' }
+            ];
+
+            container.innerHTML = `
+                <div class="row align-items-center mb-3">
+                    <div class="col-6"><h5>SAFETY HUNTER - Cari Pelanggaran K3</h5></div>
+                    <div class="col-6 text-end">
+                        <span class="badge bg-warning me-2">Skor: <span id="sh-score">0</span>/4</span>
+                        <span class="badge bg-danger">Waktu: <span id="sh-timer">30</span>s</span>
+                    </div>
+                </div>
+                <div class="game-canvas position-relative text-center d-flex justify-content-center align-items-center" style="background: radial-gradient(circle, #1a253c, #0a0e1a); height: 400px;">
+                    <div class="w-100 h-100 position-absolute top-0 start-0" style="opacity: 0.15; background-image: radial-gradient(#00f2fe 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    
+                    <h6 class="text-white-50 position-absolute top-0 mt-3">SITUASI: RUANG PRODUKSI AGENSI CREATIVE & CETAK</h6>
+                    
+                    <!-- Dynamic rendering of hazards as red pulsing dots overlay -->
+                    ${hazards.map(h => `
+                        <div id="${h.id}" class="position-absolute cursor-pointer border border-white border-2 bg-danger rounded-circle d-flex align-items-center justify-content-center text-white font-monospace" 
+                             style="top: ${h.top}; left: ${h.left}; width: 35px; height: 35px; box-shadow: 0 0 15px rgba(255,0,0,0.8); cursor: pointer;"
+                             onclick="foundHazard('${h.id}')">?</div>
+                    `).join('')}
+                    
+                    <div id="sh-instruction-overlay" class="p-3 bg-glass border border-info rounded-3 text-center position-absolute" style="max-width: 320px;">
+                        <p class="small text-white">Ada 4 potensi bahaya besar K3 di ruangan studio ini. Temukan dan klik semuanya sebelum waktu habis!</p>
+                        <button class="btn btn-neon btn-sm" onclick="document.getElementById('sh-instruction-overlay').classList.add('d-none')">SAYA SIAP MENCARI</button>
+                    </div>
+                </div>
+                <div id="sh-log" class="mt-3 bg-glass p-3 border border-secondary rounded-3 d-none">
+                    <h6 class="text-neon" id="sh-hazard-title">Bahaya Teridentifikasi!</h6>
+                    <p class="small mb-0" id="sh-hazard-desc"></p>
+                </div>
+            `;
+
+            // Active Game Timer
+            gameTimer = setInterval(() => {
+                timeRemaining--;
+                const timerEl = document.getElementById('sh-timer');
+                if (timerEl) timerEl.innerText = timeRemaining;
+                if (timeRemaining <= 0) {
+                    clearInterval(gameTimer);
+                    audio.playSFX('error');
+                    alert("Waktu habis! Anda belum berhasil menemukan semua bahaya K3LH. Coba lagi.");
+                    launchGame('safety-hunter');
+                }
+            }, 1000);
+
+            window.foundHazard = (id) => {
+                const target = hazards.find(h => h.id === id);
+                if (target && !target.found) {
+                    target.found = true;
+                    gameScore++;
+                    audio.playSFX('success');
+                    
+                    const dot = document.getElementById(id);
+                    dot.innerHTML = '<i class="fas fa-check"></i>';
+                    dot.className = "position-absolute border border-white border-2 bg-success rounded-circle d-flex align-items-center justify-content-center text-white";
+                    dot.style.boxShadow = "0 0 15px rgba(0,255,0,0.8)";
+                    
+                    document.getElementById('sh-score').innerText = gameScore;
+                    
+                    const log = document.getElementById('sh-log');
+                    log.classList.remove('d-none');
+                    document.getElementById('sh-hazard-title').innerText = target.name;
+                    document.getElementById('sh-hazard-desc').innerText = `Bahaya terdeteksi: ${target.desc}`;
+
+                    if (gameScore === 4) {
+                        clearInterval(gameTimer);
+                        earnBadge('b_gamer');
+                        addXp(100);
+                        alert("Luar Biasa! Anda menemukan semua kecelakaan K3 dalam agensi. XP Anda bertambah 100.");
+                    }
+                }
+            };
+        }
+
+        /* ----- GAME 2: DKV CAREER CHALLENGE ----- */
+        function setupCareerChallenge(container) {
+            gameScore = 0;
+            let currentQuestionIdx = 0;
+            
+            const careerQuestions = [
+                { q: "Apa tugas utama seorang desainer grafis pemula (Junior)?", a: ["Memimpin meeting direksi perusahaan global", "Mempersiapkan materi aset visual mentah, pengerjaan tata letak sederhana, dan melakukan penyesuaian file", "Mendesain mesin cetak offset otomatis baru", "Mengurus perizinan AMDAL bagi agensi periklanan baru"], c: 1 },
+                { q: "Apa yang membedakan jenjang Art Director dengan desainer senior biasa?", a: ["Art director bertugas mencuci rol silinder cetak", "Art director memimpin visual arah kampanye desain kreatif global lintas disiplin", "Art director hanya bekerja saat akhir pekan saja", "Art director tidak memerlukan laptop untuk mendesain"], c: 1 },
+                { q: "Mengapa seorang siswa DKV wajib mengikuti magang industri?", a: ["Untuk mengisi waktu luang liburan semata", "Mendapatkan pemahaman ekosistem kerja riil serta portofolio autentik", "Mendapatkan izin mendirikan perusahaan swasta", "Agar terbebas dari ujian teori akhir semester"], c: 1 },
+                { q: "Manakah portofolio desain yang paling diminati agensi modern?", a: ["Kumpulan lukisan pemandangan cat air alami", "Kompilasi studi kasus penyelesaian solusi visual promosi digital brand", "Foto-foto selfie pribadi", "Fotokopi ijazah kelulusan berstempel basah"], c: 1 }
+            ];
+
+            function renderQuiz() {
+                if (currentQuestionIdx >= careerQuestions.length) {
+                    earnBadge('b_gamer');
+                    addXp(150);
+                    container.innerHTML = `
+                        <div class="text-center py-5">
+                            <i class="fas fa-trophy text-warning fa-4x mb-4"></i>
+                            <h3 class="text-neon">KARIER TUNTAS!</h3>
+                            <p>Selamat! Anda sukses menyelesaikan simulasi DKV Career Challenge dengan skor ${gameScore}/${careerQuestions.length}.</p>
+                            <p class="small text-muted">Selamat, XP Anda bertambah +150!</p>
+                            <button class="btn btn-neon" onclick="launchGame('career-challenge')">Main Lagi</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const activeQ = careerQuestions[currentQuestionIdx];
+                container.innerHTML = `
+                    <h5>DKV CAREER CHALLENGE - Meniti Karir Kreatif</h5>
+                    <div class="progress mb-4" style="height: 6px;">
+                        <div class="progress-bar bg-info" style="width: ${((currentQuestionIdx)/careerQuestions.length)*100}%"></div>
+                    </div>
+                    <div class="bg-glass p-4 rounded-3 border border-secondary mb-4">
+                        <span class="badge bg-secondary mb-3">Pertanyaan ${currentQuestionIdx + 1} dari ${careerQuestions.length}</span>
+                        <h5 class="lh-base">${activeQ.q}</h5>
+                    </div>
+                    <div class="row">
+                        ${activeQ.a.map((opt, i) => `
+                            <div class="col-md-6 mb-3">
+                                <button class="btn btn-outline-info w-100 text-start p-3" onclick="submitCareerAns(${i})">${opt}</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            window.submitCareerAns = (idx) => {
+                const activeQ = careerQuestions[currentQuestionIdx];
+                if (idx === activeQ.c) {
+                    audio.playSFX('success');
+                    gameScore++;
+                    alert("Benar! Langkah karier luar biasa.");
+                } else {
+                    audio.playSFX('error');
+                    alert(`Kurang tepat. Jawaban yang benar adalah: ${activeQ.a[activeQ.c]}`);
+                }
+                currentQuestionIdx++;
+                renderQuiz();
+            };
+
+            renderQuiz();
+        }
+
+        /* ----- GAME 3: CREATIVE THINKING SIMULATOR ----- */
+        function setupCreativeThinking(container) {
+            const cases = [
+                {
+                    title: "KASUS 1: Klien Menolak Hasil Desain Akhir",
+                    desc: "Klien agensi Anda menolak draf visual poster peluncuran produk kosmetik baru karena dirasa terlalu kusam dan kurang memancarkan kesan feminim modern.",
+                    options: [
+                        { label: "Marah ke klien dan menghentikan kontak komunikasi sepihak", feedback: "Pilihan buruk! Ini merusak reputasi profesionalitas agensi Anda.", success: false },
+                        { label: "Melakukan proses diskusi kolaboratif baru, menelaah referensi visual kompetitor kosmetik, menyusun moodboard rona pastel cerah, dan mengajukan 2 alternatif opsi palet warna baru.", feedback: "Sangat Hebat! Ini adalah bentuk implementasi Budaya Kerja Kritis & Problem Solving sejati.", success: true }
+                    ]
+                },
+                {
+                    title: "KASUS 2: Terjadi Perbedaan Pendapat Lintas Kru",
+                    desc: "Dalam tim kreatif, Copywriter menginginkan teks iklan sangat panjang mendominasi layout, sedangkan Anda selaku Desainer menghendaki dominasi visual kosong (white-space) estetis.",
+                    options: [
+                        { label: "Membuat desain dengan ukuran huruf teks yang sangat kecil tak terbaca di pojok halaman", feedback: "Pilihan yang tidak dewasa. Klien tidak akan puas jika pesan utamanya tenggelam.", success: false },
+                        { label: "Mengadakan musyawarah singkat, membuat mockup draf perbandingan visual, serta berkompromi memperingkas esensi teks namun memberikan layout hierarki teks visual yang tegas.", feedback: "Luar Biasa! Kolaborasi harmonis adalah fondasi utama keberhasilan agensi kreatif.", success: true }
+                    ]
+                }
+            ];
+
+            let activeCaseIdx = 0;
+
+            function renderCase() {
+                if (activeCaseIdx >= cases.length) {
+                    earnBadge('b_gamer');
+                    addXp(120);
+                    container.innerHTML = `
+                        <div class="text-center py-5">
+                            <i class="fas fa-brain text-info fa-4x mb-4"></i>
+                            <h3 class="text-neon">SIMULASI KRITIS TUNTAS!</h3>
+                            <p>Luar biasa, Anda sukses menyelesaikan studi kasus manajemen agensi kreatif dengan solusi solutif terbaik!</p>
+                            <p class="small text-muted">XP Anda bertambah +120!</p>
+                            <button class="btn btn-neon" onclick="launchGame('creative-thinking')">Skenario Lain</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const currentCase = cases[activeCaseIdx];
+                container.innerHTML = `
+                    <h5>CREATIVE THINKING SIMULATOR</h5>
+                    <div class="bg-glass p-4 rounded-3 border border-secondary mb-4 mt-3">
+                        <span class="badge bg-warning text-dark mb-2">${currentCase.title}</span>
+                        <p class="mb-0 lead fs-6">${currentCase.desc}</p>
+                    </div>
+                    <div class="row">
+                        ${currentCase.options.map((opt, i) => `
+                            <div class="col-12 mb-3">
+                                <button class="btn btn-outline-info w-100 text-start p-3" onclick="submitCaseOpt(${i})">${opt.label}</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="case-feedback" class="p-3 bg-glass border border-info rounded-3 mt-3 d-none">
+                        <h6 id="cf-title" class="fw-bold">Feedback Hasil:</h6>
+                        <p id="cf-desc" class="small mb-0"></p>
+                    </div>
+                `;
+            }
+
+            window.submitCaseOpt = (idx) => {
+                const currentCase = cases[activeCaseIdx];
+                const opt = currentCase.options[idx];
+                
+                const fdbBox = document.getElementById('case-feedback');
+                fdbBox.classList.remove('d-none');
+                
+                if (opt.success) {
+                    audio.playSFX('success');
+                    document.getElementById('cf-title').className = "text-success fw-bold";
+                    document.getElementById('cf-title').innerText = "SOLUSI BRILLIANT!";
+                } else {
+                    audio.playSFX('error');
+                    document.getElementById('cf-title').className = "text-danger fw-bold";
+                    document.getElementById('cf-title').innerText = "SOLUSI KURANG TEPAT";
+                }
+                
+                document.getElementById('cf-desc').innerText = opt.feedback;
+
+                setTimeout(() => {
+                    activeCaseIdx++;
+                    renderCase();
+                }, 4000);
+            };
+
+            renderCase();
+        }
+
+        /* ----- GAME 4: PRINTING MACHINE SIMULATOR ----- */
+        function setupPrintingSimulator(container) {
+            // Virtual step sequence to simulate printing
+            let currentStep = 1;
+
+            function renderSimulator() {
+                container.innerHTML = `
+                    <h5>PRINTING MACHINE SIMULATOR - Mengoperasikan Mesin Cetak</h5>
+                    <p class="small text-muted">Lakukan setiap tahapan secara runut. Jika ada satu proses yang salah, mesin cetak offset akan memicu alarm kegagalan!</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-lg-4 mb-4">
+                            <div class="bg-glass p-3 h-100">
+                                <h6 class="font-futuristic text-neon mb-3">SOP DAFTAR TUGAS</h6>
+                                <div class="list-group">
+                                    <div class="list-group-item bg-dark text-white border-secondary py-2 d-flex justify-content-between align-items-center">
+                                        <span class="small">1. Inspeksi Fisik Mesin</span>
+                                        <span class="badge ${currentStep > 1 ? 'bg-success' : (currentStep === 1 ? 'bg-warning' : 'bg-secondary')}">${currentStep > 1 ? 'OK' : 'ACTIVE'}</span>
+                                    </div>
+                                    <div class="list-group-item bg-dark text-white border-secondary py-2 d-flex justify-content-between align-items-center">
+                                        <span class="small">2. Isi Kertas Ke Feeder</span>
+                                        <span class="badge ${currentStep > 2 ? 'bg-success' : (currentStep === 2 ? 'bg-warning' : 'bg-secondary')}">${currentStep > 2 ? 'OK' : (currentStep === 2 ? 'ACTIVE' : 'WAIT')}</span>
+                                    </div>
+                                    <div class="list-group-item bg-dark text-white border-secondary py-2 d-flex justify-content-between align-items-center">
+                                        <span class="small">3. Setel Airing Tinta Cetak</span>
+                                        <span class="badge ${currentStep > 3 ? 'bg-success' : (currentStep === 3 ? 'bg-warning' : 'bg-secondary')}">${currentStep > 3 ? 'OK' : (currentStep === 3 ? 'ACTIVE' : 'WAIT')}</span>
+                                    </div>
+                                    <div class="list-group-item bg-dark text-white border-secondary py-2 d-flex justify-content-between align-items-center">
+                                        <span class="small">4. Eksekusi Cetak Massal</span>
+                                        <span class="badge ${currentStep > 4 ? 'bg-success' : (currentStep === 4 ? 'bg-warning' : 'bg-secondary')}">${currentStep > 4 ? 'OK' : (currentStep === 4 ? 'ACTIVE' : 'WAIT')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 mb-4">
+                            <div class="game-canvas p-4 text-center d-flex flex-column justify-content-center align-items-center" style="min-height: 300px;">
+                                ${renderSimulatorControlArea()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderSimulatorControlArea() {
+                if (currentStep === 1) {
+                    return `
+                        <h5 class="text-neon mb-2">TAHAPAN 1: INSPEKSI MESIN</h5>
+                        <p class="small text-muted-custom">Periksa seluruh silinder offset dari sisa kotoran tinta atau debu kertas yang menempel.</p>
+                        <button class="btn btn-warning" onclick="simPerformAction(1)"><i class="fas fa-magnifying-glass me-2"></i>Lakukan Inspeksi Fisik</button>
+                    `;
+                } else if (currentStep === 2) {
+                    return `
+                        <h5 class="text-neon mb-2">TAHAPAN 2: PENGISIAN BAK FEEDER</h5>
+                        <p class="small text-muted-custom">Pasang kertas cetak ukuran plano A3+ pada meja penyuap lembaran kertas.</p>
+                        <button class="btn btn-info" onclick="simPerformAction(2)"><i class="fas fa-file-invoice me-2"></i>Muat Kertas plano A3+</button>
+                    `;
+                } else if (currentStep === 3) {
+                    return `
+                        <h5 class="text-neon mb-2">TAHAPAN 3: PENGATURAN TINTA CMYK</h5>
+                        <p class="small text-muted-custom">Buka katup keran sirkulasi aliran tinta offset agar mengalir merata ke bagian plat acuan.</p>
+                        <button class="btn btn-secondary text-neon" onclick="simPerformAction(3)"><i class="fas fa-sliders me-2"></i>Aktifkan Katup Sirkulasi Tinta</button>
+                    `;
+                } else if (currentStep === 4) {
+                    return `
+                        <h5 class="text-danger mb-2 font-futuristic">TAHAPAN 4: EKSEKUSI CETAK</h5>
+                        <p class="small text-muted-custom">Semua sistem siap beroperasi. Aktifkan saklar utama motor penggerak mesin!</p>
+                        <button class="btn btn-danger font-futuristic py-3 px-5 animate__animated animate__pulse animate__infinite" onclick="simPerformAction(4)"><i class="fas fa-power-off me-2"></i>START PRINT RUN</button>
+                    `;
+                } else {
+                    earnBadge('b_gamer');
+                    addXp(200);
+                    return `
+                        <i class="fas fa-circle-check text-success fa-4x mb-3"></i>
+                        <h4 class="text-neon">SIMULASI BERHASIL!</h4>
+                        <p class="small">Mesin cetak offset beroperasi dengan sempurna tanpa ada kesalahan proses produksi.</p>
+                        <p class="small text-muted">Selamat, XP Anda bertambah +200!</p>
+                        <button class="btn btn-neon" onclick="launchGame('printing-simulator')">Mulai Ulang</button>
+                    `;
+                }
+            }
+
+            window.simPerformAction = (stepID) => {
+                if (stepID === currentStep) {
+                    audio.playSFX('success');
+                    currentStep++;
+                    renderSimulator();
+                } else {
+                    audio.playSFX('error');
+                    alert("Melanggar SOP! Lakukan tahapan pengerjaan secara berurutan!");
+                }
+            };
+
+            renderSimulator();
+        }
+
+
+        /* ==================== 7. CHANNELS EVALUASI UTAMA ==================== */
+        let activeEvalType = '';
+        let evalQuestions = [];
+        let currentEvalIdx = 0;
+        let evalAnswers = [];
+        let evalTimerInterval = null;
+        let evalTimeLeft = 1800; // 30 mins
+
+        function startEvaluation(type) {
+            audio.playSFX('click');
+            activeEvalType = type;
+            evalQuestions = type === 'pretest' ? [...SOAL_PRETEST] : [...SOAL_POSTTEST];
+            
+            // Shuffle questions for randomized order
+            evalQuestions.sort(() => Math.random() - 0.5);
+
+            currentEvalIdx = 0;
+            evalAnswers = new Array(evalQuestions.length).fill(null);
+            evalTimeLeft = 1800;
+
+            document.getElementById('active-evaluation-container').classList.remove('d-none');
+            document.getElementById('eval-title').innerText = type.toUpperCase() + " SEDANG BERLANGSUNG";
+
+            // Timer management
+            if (evalTimerInterval) clearInterval(evalTimerInterval);
+            evalTimerInterval = setInterval(() => {
+                evalTimeLeft--;
+                const min = Math.floor(evalTimeLeft / 60);
+                const sec = evalTimeLeft % 60;
+                document.getElementById('eval-timer').innerHTML = `<i class="far fa-clock me-2"></i>${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+                
+                if (evalTimeLeft <= 0) {
+                    clearInterval(evalTimerInterval);
+                    finishEvaluation();
+                }
+            }, 1000);
+
+            renderEvalQuestion();
+        }
+
+        function renderEvalQuestion() {
+            const activeQ = evalQuestions[currentEvalIdx];
+            const progressPercent = Math.floor(((currentEvalIdx + 1) / evalQuestions.length) * 100);
+            document.getElementById('eval-progress').style.width = `${progressPercent}%`;
+
+            const area = document.getElementById('eval-question-area');
+            area.innerHTML = `
+                <div class="bg-glass p-3 mb-4 rounded-3 border border-secondary">
+                    <span class="badge bg-secondary mb-3">Butir Soal Ke ${currentEvalIdx + 1} dari ${evalQuestions.length}</span>
+                    <h5 class="lh-base mb-0">${activeQ.question}</h5>
+                </div>
+                <div class="row">
+                    ${activeQ.options.map((opt, i) => `
+                        <div class="col-12 mb-3">
+                            <button class="btn ${evalAnswers[currentEvalIdx] === i ? 'btn-info' : 'btn-outline-info'} w-100 text-start p-3" onclick="selectEvalAnswer(${i})">
+                                <strong>${String.fromCharCode(65 + i)}.</strong> ${opt}
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+                    <button class="btn btn-secondary px-4" onclick="navigateEval(-1)" ${currentEvalIdx === 0 ? 'disabled' : ''}><i class="fas fa-chevron-left me-2"></i>Sebelumnya</button>
+                    ${currentEvalIdx === evalQuestions.length - 1 
+                        ? `<button class="btn btn-success px-5" onclick="finishEvaluation()"><i class="fas fa-paper-plane me-2"></i>Selesai & Kumpulkan</button>`
+                        : `<button class="btn btn-secondary px-4" onclick="navigateEval(1)">Selanjutnya<i class="fas fa-chevron-right ms-2"></i></button>`
+                    }
+                </div>
+            `;
+        }
+
+        window.selectEvalAnswer = (idx) => {
+            audio.playSFX('click');
+            evalAnswers[currentEvalIdx] = idx;
+            renderEvalQuestion();
+        };
+
+        window.navigateEval = (dir) => {
+            audio.playSFX('click');
+            currentEvalIdx += dir;
+            renderEvalQuestion();
+        };
+
+        function finishEvaluation() {
+            clearInterval(evalTimerInterval);
+            audio.playSFX('levelup');
+
+            // Calculate final raw score
+            let correctCount = 0;
+            evalQuestions.forEach((q, idx) => {
+                if (evalAnswers[idx] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const finalScore = Math.round((correctCount / evalQuestions.length) * 100);
+
+            if (activeEvalType === 'pretest') {
+                if (USER_STATE.pretestScore === null || finalScore > USER_STATE.pretestScore) {
+                    USER_STATE.pretestScore = finalScore;
+                }
+            } else {
+                if (USER_STATE.posttestScore === null || finalScore > USER_STATE.posttestScore) {
+                    USER_STATE.posttestScore = finalScore;
+                }
+                // Earn competency professional badge if posttest score >= 75
+                if (finalScore >= 75) {
+                    earnBadge('b_pro');
+                }
+            }
+
+            addXp(finalScore * 2);
+            saveState();
+            updateUIElements();
+
+            // Render Results Panel
+            const area = document.getElementById('eval-question-area');
+            document.getElementById('active-evaluation-container').classList.add('mt-3');
+            document.getElementById('eval-title').innerText = `HASIL EVALUASI ${activeEvalType.toUpperCase()}`;
+            
+            area.innerHTML = `
+                <div class="text-center py-4">
+                    <h2 class="display-3 font-futuristic text-neon mb-2">${finalScore}/100</h2>
+                    <h4 class="mb-4">${finalScore >= 75 ? 'Dinyatakan Lulus Kompeten!' : 'Belum Memenuhi Kriteria Kelulusan Minimal (75)'}</h4>
+                    <p class="text-muted small">Jawaban Benar: ${correctCount} dari ${evalQuestions.length} Soal.</p>
+                    
+                    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                        <button class="btn btn-outline-light rounded-pill px-4" onclick="toggleAnswersReview()"><i class="fas fa-eye me-2"></i>Review Pembahasan Soal</button>
+                        ${finalScore >= 75 && activeEvalType === 'posttest' 
+                            ? `<button class="btn btn-neon rounded-pill px-4" onclick="generateAndShowCertificate(${finalScore})"><i class="fas fa-award me-2"></i>Terbitkan Sertifikat</button>`
+                            : `<button class="btn btn-secondary rounded-pill px-4" onclick="startEvaluation('${activeEvalType}')"><i class="fas fa-rotate-left me-2"></i>Coba Ulangi Tes</button>`
+                        }
+                    </div>
+                    
+                    <div id="review-panel" class="d-none text-start mt-5 pt-4 border-top border-secondary">
+                        <h5 class="text-neon font-futuristic mb-4">PULASAN MATERI & PEMBAHASAN</h5>
+                        ${evalQuestions.map((q, idx) => `
+                            <div class="bg-glass p-3 rounded-3 mb-3 border ${evalAnswers[idx] === q.correct ? 'border-success' : 'border-danger'}">
+                                <h6>Soal ${idx + 1}: ${q.question}</h6>
+                                <p class="small mb-1">Pilihan Anda: <span class="text-danger">${evalAnswers[idx] !== null ? q.options[evalAnswers[idx]] : 'Tidak Dijawab'}</span></p>
+                                <p class="small mb-1 text-success">Jawaban Benar: <span>${q.options[q.correct]}</span></p>
+                                <p class="small text-muted mb-0 mt-2"><strong>Pembahasan:</strong> ${q.explanation}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        window.toggleAnswersReview = () => {
+            audio.playSFX('click');
+            const panel = document.getElementById('review-panel');
+            panel.classList.toggle('d-none');
+        };
+
+
+        /* ==================== 8. INTEGRASI SERTIFIKAT KOMPETENSI ==================== */
+        function generateAndShowCertificate(score) {
+            audio.playSFX('success');
+            
+            // Populate Certificate HTML elements
+            document.getElementById('cert-user-name').innerText = USER_STATE.name.toUpperCase();
+            document.getElementById('cert-user-class').innerText = `${USER_STATE.class} / ${USER_STATE.school}`;
+            document.getElementById('cert-score').innerText = `${score}/100`;
+
+            const today = new Date();
+            const dateStr = today.getDate() + ' ' + today.toLocaleString('id-ID', { month: 'long' }) + ' ' + today.getFullYear();
+            document.getElementById('cert-date').innerText = dateStr;
+
+            showSection('sertifikat');
+        }
+
+        function downloadCertificate() {
+            audio.playSFX('click');
+            // Gunakan metode window.print() asli bawaan browser dengan merestrukturisasi target media print via CSS
+            window.print();
+        }
+
+
+        /* ==================== 9. CHART INTEGRASI PROGRESS GRAPHIC (CHART.JS) ==================== */
+        let myChart = null;
+        function renderChart() {
+            const ctx = document.getElementById('chart-learning-progress');
+            if (!ctx) return;
+
+            const labelModules = ['K3LH', 'Budaya Kerja', 'Mesin Cetak'];
+            const dataProgress = [
+                USER_STATE.progress['materi-k3lh'] || 0,
+                USER_STATE.progress['materi-budaya'] || 0,
+                USER_STATE.progress['materi-cetak'] || 0
+            ];
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labelModules,
+                    datasets: [{
+                        label: 'Persentase Penguasaan Modul (%)',
+                        data: dataProgress,
+                        backgroundColor: [
+                            'rgba(0, 242, 254, 0.4)',
+                            'rgba(255, 179, 0, 0.4)',
+                            'rgba(157, 77, 221, 0.4)'
+                        ],
+                        borderColor: [
+                            '#00f2fe',
+                            '#ffb300',
+                            '#9d4edd'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#8b9bb4' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#8b9bb4' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- CSS Print Media Queries Khusus Untuk Mencetak Sertifikat Saja secara Rapi -->
+    <style media="print">
+        body * {
+            visibility: hidden;
+        }
+        #certificate-wrapper, #certificate-wrapper * {
+            visibility: visible;
+        }
+        #certificate-wrapper {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+            border: none;
+        }
+        #certificate-template {
+            width: 100% !important;
+            max-width: 100% !important;
+            border: 20px double #9d4edd !important;
+            page-break-inside: avoid;
+        }
+    </style>
+</body>
+</html>
