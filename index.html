@@ -49,8 +49,21 @@
             border-color: rgba(0, 0, 0, 0.1);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
         }
+        body.light-mode .text-muted-custom {
+            color: #495057 !important;
+        }
+        body.light-mode .text-white {
+            color: #212529 !important;
+        }
         body.light-mode .text-muted {
             color: #6c757d !important;
+        }
+        body.light-mode .lead {
+            color: #495057 !important;
+        }
+
+        .text-muted-custom {
+            color: #a0aec0 !important;
         }
 
         /* Loading Screen */
@@ -105,6 +118,16 @@
             transform: translateY(-8px);
             border-color: var(--primary-neon);
             box-shadow: 0 15px 35px rgba(0, 242, 254, 0.15);
+        }
+
+        /* Material Header Image Container */
+        .materi-header-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 24px;
         }
 
         /* Buttons & Badges */
@@ -217,7 +240,7 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
+            0 { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
             70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 127, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0); }
         }
@@ -685,40 +708,53 @@
             }
 
             init() {
-                if (!this.audioCtx) {
-                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                try {
+                    if (!this.audioCtx) {
+                        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    if (this.audioCtx.state === 'suspended') {
+                        this.audioCtx.resume();
+                    }
+                } catch (e) {
+                    console.log("AudioContext not supported or blocked by browser policies.");
                 }
             }
 
             playBGM() {
                 this.init();
-                if (this.bgmPlaying) return;
+                if (this.bgmPlaying || !this.audioCtx) return;
 
-                this.bgmOsc = this.audioCtx.createOscillator();
-                this.bgmGain = this.audioCtx.createGain();
+                try {
+                    this.bgmOsc = this.audioCtx.createOscillator();
+                    this.bgmGain = this.audioCtx.createGain();
 
-                // Pad ambient sound synthesizer
-                this.bgmOsc.type = 'triangle';
-                this.bgmOsc.frequency.setValueAtTime(110, this.audioCtx.currentTime); // A2 note
-                
-                // Lowpass filter for smooth ambient
-                const filter = this.audioCtx.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.setValueAtTime(400, this.audioCtx.currentTime);
+                    // Pad ambient sound synthesizer
+                    this.bgmOsc.type = 'triangle';
+                    this.bgmOsc.frequency.setValueAtTime(110, this.audioCtx.currentTime); // A2 note
+                    
+                    // Lowpass filter for smooth ambient
+                    const filter = this.audioCtx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(400, this.audioCtx.currentTime);
 
-                this.bgmGain.gain.setValueAtTime(0.08, this.audioCtx.currentTime);
+                    this.bgmGain.gain.setValueAtTime(0.08, this.audioCtx.currentTime);
 
-                this.bgmOsc.connect(filter);
-                filter.connect(this.bgmGain);
-                this.bgmGain.connect(this.audioCtx.destination);
+                    this.bgmOsc.connect(filter);
+                    filter.connect(this.bgmGain);
+                    this.bgmGain.connect(this.audioCtx.destination);
 
-                this.bgmOsc.start();
-                this.bgmPlaying = true;
+                    this.bgmOsc.start();
+                    this.bgmPlaying = true;
+                } catch (e) {
+                    console.log("Failed to start BGM:", e);
+                }
             }
 
             stopBGM() {
                 if (this.bgmPlaying && this.bgmOsc) {
-                    this.bgmOsc.stop();
+                    try {
+                        this.bgmOsc.stop();
+                    } catch (e) {}
                     this.bgmPlaying = false;
                 }
             }
@@ -726,47 +762,52 @@
             playSFX(type) {
                 if (!this.sfxEnabled) return;
                 this.init();
+                if (!this.audioCtx) return;
 
-                const osc = this.audioCtx.createOscillator();
-                const gain = this.audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(this.audioCtx.destination);
+                try {
+                    const osc = this.audioCtx.createOscillator();
+                    const gain = this.audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.audioCtx.destination);
 
-                const now = this.audioCtx.currentTime;
+                    const now = this.audioCtx.currentTime;
 
-                if (type === 'click') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(600, now);
-                    osc.frequency.exponentialRampToValueAtTime(150, now + 0.1);
-                    gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-                    osc.start(now);
-                    osc.stop(now + 0.1);
-                } else if (type === 'success') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(523.25, now); // C5
-                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
-                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
-                    osc.start(now);
-                    osc.stop(now + 0.45);
-                } else if (type === 'error') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(150, now);
-                    osc.frequency.setValueAtTime(120, now + 0.15);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-                    osc.start(now);
-                    osc.stop(now + 0.3);
-                } else if (type === 'levelup') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(440, now);
-                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.4);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-                    osc.start(now);
-                    osc.stop(now + 0.5);
+                    if (type === 'click') {
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(600, now);
+                        osc.frequency.exponentialRampToValueAtTime(150, now + 0.1);
+                        gain.gain.setValueAtTime(0.15, now);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                        osc.start(now);
+                        osc.stop(now + 0.1);
+                    } else if (type === 'success') {
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(523.25, now); // C5
+                        osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                        osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                        gain.gain.setValueAtTime(0.12, now);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                        osc.start(now);
+                        osc.stop(now + 0.45);
+                    } else if (type === 'error') {
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(150, now);
+                        osc.frequency.setValueAtTime(120, now + 0.15);
+                        gain.gain.setValueAtTime(0.2, now);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                        osc.start(now);
+                        osc.stop(now + 0.3);
+                    } else if (type === 'levelup') {
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(440, now);
+                        osc.frequency.exponentialRampToValueAtTime(880, now + 0.4);
+                        gain.gain.setValueAtTime(0.2, now);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                        osc.start(now);
+                        osc.stop(now + 0.5);
+                    }
+                } catch (e) {
+                    console.log("Failed to play SFX:", e);
                 }
             }
         }
@@ -782,11 +823,12 @@
                         id: "k3lh-sub1",
                         title: "A1. Ketenagakerjaan & Peluang Kerja DKV",
                         content: `
+                            <img class="materi-header-img" src="https://images.unsplash.com/photo-1542744094-3a31f103e35f?q=80&w=1200&auto=format&fit=crop" alt="DKV Career Team">
                             <h4 class="text-neon mb-3">Definisi, Regulasi Hukum, Hak-Kewajiban Pekerja & Peta Karir DKV</h4>
                             <p><strong>Pengertian Ketenagakerjaan:</strong> Berdasarkan landasan konstitusional <strong>UU No. 13 Tahun 2003 tentang Ketenagakerjaan</strong>, ketenagakerjaan adalah segala hal yang berhubungan dengan tenaga kerja pada waktu sebelum, selama, dan sesudah masa hubungan kerja. Dalam konteks industri kreatif dan Desain Komunikasi Visual (DKV), pemahaman aspek hukum ketenagakerjaan sangat penting guna melindungi hak kekayaan intelektual (HKI) serta keadilan kontrak kerja desainer.</p>
                             
                             <h5 class="text-neon mt-4 mb-2"><i class="fa-solid fa-scale-balanced me-2"></i>Hak & Kewajiban Tenaga Kerja Desainer</h5>
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col-md-6 mb-3">
                                     <div class="bg-glass p-3 h-100 border-start border-info border-3">
                                         <h6 class="text-info fw-bold">Hak Pekerja (Pasal 86 & 88 UU No. 13/2003)</h6>
@@ -860,6 +902,7 @@
                         id: "k3lh-sub2",
                         title: "A2. Regulasi K3LH, Klasifikasi Bahaya & APD",
                         content: `
+                            <img class="materi-header-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop" alt="Safety First">
                             <h4 class="text-neon mb-3">Kesehatan, Keselamatan Kerja, dan Lingkungan Hidup (K3LH)</h4>
                             <p>Berdasarkan <strong>UU No. 1 Tahun 1970 tentang Keselamatan Kerja</strong>, K3LH di lingkungan industri DKV bukan sekadar pelengkap, melainkan pilar utama perlindungan jiwa pekerja. Industri DKV memiliki klasifikasi potensi bahaya (hazards) yang spesifik.</p>
                             
@@ -932,6 +975,7 @@
                         id: "budaya-sub1",
                         title: "B1. Karakter Budaya Kerja Kreatif & Berpikir Kritis",
                         content: `
+                            <img class="materi-header-img" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop" alt="Creative Collaboration">
                             <h4 class="text-neon mb-3">Pilar Sikap Kerja Produktif, Critical Thinking & Problem Solving</h4>
                             <p>Industri kreatif menuntut pola pikir inovatif yang terstruktur. Sesuai Kurikulum Merdeka Fase E, siswa diajarkan membangun budaya kerja mandiri yang selaras dengan iklim kerja profesional agensi kelas dunia.</p>
 
@@ -977,6 +1021,7 @@
                         id: "budaya-sub2",
                         title: "B2. Implementasi Sistem Budaya Kerja 5R (5S)",
                         content: `
+                            <img class="materi-header-img" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop" alt="Prinstine Studio Workspace">
                             <h4 class="text-neon mb-3">Implementasi Detail Budaya Industri 5R dalam Studio DKV</h4>
                             <p>Sistem manajemen tempat kerja 5R (Jepang: 5S) diadopsi dari industri manufaktur kelas dunia guna memaksimalkan efisiensi, mencegah pemborosan (waste), serta meminimalkan risiko kecelakaan kerja di area desain dan percetakan.</p>
                             
@@ -1033,6 +1078,7 @@
                         id: "cetak-sub1",
                         title: "C1. Perbandingan Teknologi Cetak Industri",
                         content: `
+                            <img class="materi-header-img" src="https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?q=80&w=1200&auto=format&fit=crop" alt="Digital Large Format Printing">
                             <h4 class="text-neon mb-3">Analisis Komparasi Mesin Cetak Offset & Digital Printing</h4>
                             <p>Proses mewujudkan karya desain digital menjadi produk fisik membutuhkan pemahaman teknologi cetak industri. Kurikulum Merdeka Fase E mengklasifikasikan mesin cetak utama industri menjadi dua kelompok besar.</p>
                             
@@ -1068,6 +1114,7 @@
                         id: "cetak-sub2",
                         title: "C2. Anatomi, Operasional & Troubleshooting Mesin Cetak",
                         content: `
+                            <img class="materi-header-img" src="https://images.unsplash.com/photo-1616400619175-5ebd30095ccc?q=80&w=1200&auto=format&fit=crop" alt="Industrial Offset Press Rollers">
                             <h4 class="text-neon mb-3">Struktur Sistem Mekanis, Prosedur Kerja & Solusi Kendala Teknis Cetak</h4>
                             <p class="small text-muted">Memahami prinsip silinder putar (rotary cylinders) pada mesin offset lithography modern. Klik area komponen rol di bawah untuk mempelajari detail fungsi kerjanya.</p>
 
@@ -1143,105 +1190,472 @@
             }
         };
 
-        /* ==================== 3. DATA SOAL EVALUASI (PRETEST & POSTTEST) ==================== */
-        const SOAL_PRETEST = [];
-        const SOAL_POSTTEST = [];
-
-        // Hasilkan Bank Soal Berkualitas Tinggi Secara Otomatis guna memenuhi kuota 20 Pretest & 25 Posttest
-        function generateQuestionBank() {
-            // Generate 20 Pretest Questions (Fase E DKV K3LH & Budaya Kerja)
-            const pretestData = [
-                {
-                    q: "Berdasarkan regulasi UU No. 13 Tahun 2003 tentang Ketenagakerjaan, apa yang dimaksud dengan hubungan kerja?",
-                    o: ["Hubungan persahabatan antara pemilik usaha di luar jam operasional", "Hubungan antara pengusaha dengan pekerja berdasarkan perjanjian kerja yang mempunyai unsur pekerjaan, upah, dan perintah", "Hubungan sewa-menyewa ruang kantor studio DKV saja", "Hubungan sosial antar buruh harian tanpa ikatan kontrak tertulis"],
-                    c: 1,
-                    e: "Hubungan kerja adalah hubungan hukum yang memuat unsur pekerjaan, upah layak, dan instruksi kerja operasional (perintah) yang sah menurut regulasi ketenagakerjaan."
-                },
-                {
-                    q: "Sebutkan undang-undang yang mengatur landasan hukum Keselamatan Kerja di Indonesia!",
-                    o: ["UU No. 13 Tahun 2003", "UU No. 1 Tahun 1970", "UU No. 20 Tahun 2003", "UU No. 24 Tahun 2011"],
-                    c: 1,
-                    e: "UU No. 1 Tahun 1970 tentang Keselamatan Kerja adalah payung hukum utama yang wajib diterapkan pada setiap lingkungan kerja fisik."
-                },
-                {
-                    q: "Mengapa desainer DKV sangat rentan terkena cedera Carpal Tunnel Syndrome (CTS)?",
-                    o: ["Akibat paparan zat kimia pelarut tinta cetak offset", "Akibat posisi duduk statis dan gerakan pergelangan tangan berulang-ulang saat memegang mouse komputer secara tidak ergonomis", "Akibat radiasi cahaya lampu studio fotografi", "Akibat terlalu sering bekerja lembur melampaui 8 jam"],
-                    c: 1,
-                    e: "Gerakan mengetik dan menggenggam tetikus (mouse) secara terus menerus dengan posisi pergelangan menekuk memicu penekanan saraf median pergelangan tangan (CTS)."
-                },
-                {
-                    q: "Apa nama alat pelindung diri (APD) yang wajib dipakai operator cetak offset saat menuang cairan pembersih plat?",
-                    o: ["Masker kain tipis", "Kacamata hitam gaya", "Sarung tangan karet/nitril dan kacamata safety (goggles)", "Sepatu safety berujung baja tanpa penutup hidung"],
-                    c: 2,
-                    e: "Sarung tangan karet/nitril mencegah zat kimia korosif merusak kulit tangan, sedangkan safety goggles melindungi retina mata dari bahaya cipratan cairan pembersih."
-                },
-                {
-                    q: "Apa kepanjangan dan filosofi dari konsep budaya kerja 5R yang diadopsi dari industri manufaktur Jepang?",
-                    o: ["Rapi, Ringan, Ramah, Rukun, Riang", "Ringkas, Rapi, Resik, Rawat, Rajin", "Rancang, Rekonstruksi, Refleksi, Rawat, Rapi", "Rasa, Rupa, Rancang, Rapi, Rajin"],
-                    c: 1,
-                    e: "5R merupakan adaptasi dari 5S Jepang (Seiri, Seiton, Seiso, Seiketsu, Shitsuke) yang bertujuan menciptakan efisiensi lingkungan kerja fisik."
-                }
-            ];
-
-            // Populate Pretest
-            for (let i = 0; i < 20; i++) {
-                const base = pretestData[i % pretestData.length];
-                SOAL_PRETEST.push({
-                    id: `pre-${i + 1}`,
-                    question: `[Pretest Q${i + 1}] ${base.q}`,
-                    options: base.o,
-                    correct: base.c,
-                    explanation: base.e
-                });
+        /* ==================== 3. SOAL EVALUASI UTAMA (PRETEST & POSTTEST) ==================== */
+        const SOAL_PRETEST = [
+            {
+                id: "pre-1",
+                question: "Berdasarkan regulasi UU No. 13 Tahun 2003 tentang Ketenagakerjaan, apa yang dimaksud dengan hubungan kerja?",
+                options: [
+                    "Hubungan persahabatan antara pemilik usaha di luar jam operasional", 
+                    "Hubungan antara pengusaha dengan pekerja berdasarkan perjanjian kerja yang mempunyai unsur pekerjaan, upah, dan perintah", 
+                    "Hubungan sewa-menyewa ruang kantor studio DKV saja", 
+                    "Hubungan sosial antar buruh harian tanpa ikatan kontrak tertulis"
+                ],
+                correct: 1,
+                explanation: "Hubungan kerja adalah hubungan hukum yang memuat unsur pekerjaan, upah layak, dan instruksi kerja operasional (perintah) yang sah menurut regulasi ketenagakerjaan."
+            },
+            {
+                id: "pre-2",
+                question: "Sebutkan undang-undang yang mengatur landasan hukum Keselamatan Kerja di Indonesia!",
+                options: ["UU No. 13 Tahun 2003", "UU No. 1 Tahun 1970", "UU No. 20 Tahun 2003", "UU No. 24 Tahun 2011"],
+                correct: 1,
+                explanation: "UU No. 1 Tahun 1970 tentang Keselamatan Kerja adalah payung hukum utama yang wajib diterapkan pada setiap lingkungan kerja fisik."
+            },
+            {
+                id: "pre-3",
+                question: "Mengapa desainer DKV sangat rentan terkena cedera Carpal Tunnel Syndrome (CTS)?",
+                options: [
+                    "Akibat paparan zat kimia pelarut tinta cetak offset", 
+                    "Akibat posisi duduk statis dan gerakan pergelangan tangan berulang-ulang saat memegang mouse komputer secara tidak ergonomis", 
+                    "Akibat radiasi cahaya lampu studio fotografi", 
+                    "Akibat terlalu sering bekerja lembur melampaui 8 jam"
+                ],
+                correct: 1,
+                explanation: "Gerakan mengetik dan menggenggam tetikus (mouse) secara terus menerus dengan posisi pergelangan menekuk memicu penekanan saraf median pergelangan tangan (CTS)."
+            },
+            {
+                id: "pre-4",
+                question: "Apa nama alat pelindung diri (APD) yang wajib dipakai operator cetak offset saat menuang cairan pembersih plat?",
+                options: [
+                    "Masker kain tipis", 
+                    "Kacamata hitam gaya", 
+                    "Sarung tangan karet/nitril dan kacamata safety (goggles)", 
+                    "Sepatu safety berujung baja tanpa penutup hidung"
+                ],
+                correct: 2,
+                explanation: "Sarung tangan karet/nitril mencegah zat kimia korosif merusak kulit tangan, sedangkan safety goggles melindungi retina mata dari bahaya cipratan cairan pembersih."
+            },
+            {
+                id: "pre-5",
+                question: "Apa kepanjangan dan filosofi dari konsep budaya kerja 5R yang diadopsi dari industri manufaktur Jepang?",
+                options: [
+                    "Rapi, Ringan, Ramah, Rukun, Riang", 
+                    "Ringkas, Rapi, Resik, Rawat, Rajin", 
+                    "Rancang, Rekonstruksi, Refleksi, Rawat, Rapi", 
+                    "Rasa, Rupa, Rancang, Rapi, Rajin"
+                ],
+                correct: 1,
+                explanation: "5R merupakan adaptasi dari 5S Jepang (Seiri, Seiton, Seiso, Seiketsu, Shitsuke) yang bertujuan menciptakan efisiensi lingkungan kerja fisik."
+            },
+            {
+                id: "pre-6",
+                question: "Elemen 5R yang berfokus memisahkan barang penting vs tidak penting disebut...",
+                options: ["Seiri (Ringkas)", "Seiton (Rapi)", "Seiso (Resik)", "Seiketsu (Rawat)"],
+                correct: 0,
+                explanation: "Seiri atau Ringkas adalah proses memilah barang yang diperlukan dan tidak diperlukan, lalu menyingkirkan barang yang tidak diperlukan."
+            },
+            {
+                id: "pre-7",
+                question: "Tahapan pre-press yang memastikan ada area potong tambahan agar pinggiran cetak tidak putih disebut...",
+                options: ["Imposition", "Bleed", "Trapping", "Outputting"],
+                correct: 1,
+                explanation: "Bleed adalah area tambahan di luar batas potong halaman desain untuk mengantisipasi ketidakakuratan pemotongan kertas."
+            },
+            {
+                id: "pre-8",
+                question: "Mengapa gambar dengan mode warna RGB harus dikonversi ke CMYK sebelum naik cetak offset?",
+                options: [
+                    "Agar ukuran file menjadi lebih ringan", 
+                    "Karena mesin cetak fisik menggunakan sistem warna subtraktif tinta fisik CMYK, bukan aditif cahaya monitor RGB", 
+                    "Agar proses cetak dapat berjalan lebih cepat", 
+                    "Agar tinta cetak menjadi lebih hemat"
+                ],
+                correct: 1,
+                explanation: "RGB adalah model warna aditif untuk layar digital, sementara proses cetak menggunakan pencampuran pigmen subtraktif (CMYK)."
+            },
+            {
+                id: "pre-9",
+                question: "Fungsi utama Blanket Cylinder pada mesin offset printing adalah...",
+                options: [
+                    "Menyuap lembaran kertas ke dalam mesin", 
+                    "Menerima gambar tinta dari silinder plat dan memindahkannya ke permukaan kertas", 
+                    "Mengeringkan lembaran kertas setelah terkena tinta", 
+                    "Menyinari plat alumunium peka cahaya"
+                ],
+                correct: 1,
+                explanation: "Silinder blanket terbungkus karet elastis untuk memindahkan tinta dari silinder plat ke kertas dengan kontak yang lebih merata."
+            },
+            {
+                id: "pre-10",
+                question: "Sifat khas 'Variable Data Printing' (VDP) yang menjadi keunggulan utama cetak digital adalah...",
+                options: [
+                    "Bisa mencetak tanpa menggunakan aliran listrik", 
+                    "Bisa merubah materi cetak/teks yang berbeda di setiap lembaran cetak tanpa menghentikan mesin", 
+                    "Menggunakan plat seng yang diganti secara otomatis", 
+                    "Mencetak dengan satu warna dasar saja"
+                ],
+                correct: 1,
+                explanation: "VDP memungkinkan kustomisasi elemen data (seperti nama pada sertifikat) secara dinamis langsung dari database pada setiap lembaran."
+            },
+            {
+                id: "pre-11",
+                question: "Bagaimanakah posisi monitor komputer yang paling ergonomis bagi desainer?",
+                options: [
+                    "Tepat sejajar mata atau sedikit di bawah garis pandang mata dengan jarak 50-70 cm", 
+                    "Sangat dekat dengan wajah agar teks kecil terbaca", 
+                    "Diletakkan miring ke kanan sejauh 45 derajat", 
+                    "Diposisikan lebih tinggi dari kepala agar leher mendongak"
+                ],
+                correct: 0,
+                explanation: "Posisi sejajar atau sedikit di bawah garis pandang mata dengan jarak 50-70 cm dapat meminimalkan ketegangan otot leher dan mata."
+            },
+            {
+                id: "pre-12",
+                question: "Aturan peregangan mata 20-20-20 secara medis diartikan sebagai...",
+                options: [
+                    "Menutup mata selama 20 menit setiap beristirahat", 
+                    "Setiap 20 menit bekerja, alihkan pandangan sejauh 20 kaki (6 meter) selama minimal 20 detik", 
+                    "Berkedip sebanyak 20 kali dalam waktu 20 detik", 
+                    "Melihat objek berwarna merah sejauh 20 meter"
+                ],
+                correct: 1,
+                explanation: "Metode 20-20-20 sangat efektif untuk mencegah sindrom kelelahan mata digital (Computer Vision Syndrome)."
+            },
+            {
+                id: "pre-13",
+                question: "Pelaku usaha mandiri di industri kreatif DKV yang mengandalkan teknologi digital disebut...",
+                options: ["Technopreneur", "Bureaucrat", "Wholesaler", "Industrialist"],
+                correct: 0,
+                explanation: "Technopreneur adalah wirausahawan yang memanfaatkan teknologi digital sebagai basis inovasi nilai jual bisnis kreatifnya."
+            },
+            {
+                id: "pre-14",
+                question: "Dokumen panduan awal dari klien yang memuat spesifikasi proyek desain disebut...",
+                options: ["Design Brief", "Invoicing Doc", "Purchase Order", "SOP Sheet"],
+                correct: 0,
+                explanation: "Design Brief berisi deskripsi proyek, khalayak sasaran, tujuan komunikasi visual, anggaran, serta tenggat waktu pengerjaan."
+            },
+            {
+                id: "pre-15",
+                question: "Apa penyebab masalah cetak offset berupa 'Scumming'?",
+                options: [
+                    "Aliran listrik mesin tidak stabil", 
+                    "Kurangnya pasokan air pembasah pada area non-gambar di plat sehingga menarik noda tinta berminyak", 
+                    "Tinta cetak terlalu encer", 
+                    "Kertas mengalami selip saat penyuapan"
+                ],
+                correct: 1,
+                explanation: "Jika silinder plat kekurangan air, area non-gambar akan kehilangan sifat hidrofobiknya dan mulai mengikat partikel pigmen tinta berminyak."
+            },
+            {
+                id: "pre-16",
+                question: "Peran utama seorang 'Art Director' di agensi kreatif adalah...",
+                options: [
+                    "Menulis kode program aplikasi mobile", 
+                    "Memimpin arah artistik visual sebuah proyek kampanye kreatif lintas divisi", 
+                    "Mengoperasikan mesin cetak offset", 
+                    "Mencatat laporan keuangan bulanan"
+                ],
+                correct: 1,
+                explanation: "Art Director bertanggung jawab atas konsep estetika keseluruhan dan memandu tim visual untuk merealisasikan visi komunikasi kreatif."
+            },
+            {
+                id: "pre-17",
+                question: "Manakah yang diklasifikasikan sebagai bahaya psikososial bagi pekerja DKV?",
+                options: [
+                    "Kabel listrik terkelupas", 
+                    "Tekanan kerja berat akibat revisi tanpa batas dan deadline ketat (burnout)", 
+                    "Lampu ruangan redup", 
+                    "Debu sisa kertas cetak"
+                ],
+                correct: 1,
+                explanation: "Bahaya psikososial berhubungan dengan beban kerja mental, manajemen waktu yang buruk, serta konflik interpersonal di tempat kerja."
+            },
+            {
+                id: "pre-18",
+                question: "Lisensi gambar berlabel 'Creative Commons CC-BY-NC' berarti...",
+                options: [
+                    "Bebas dipakai secara komersial tanpa mencantumkan kredit pembuat", 
+                    "Boleh digunakan kembali dengan mencantumkan nama pembuat, namun tidak untuk kepentingan komersial (non-commercial)", 
+                    "Hak cipta gambar sepenuhnya milik publik tanpa batas", 
+                    "Tidak boleh dimodifikasi sama sekali"
+                ],
+                correct: 1,
+                explanation: "NC kepanjangan dari Non-Commercial, dan BY mewakili kewajiban atribusi (mencantumkan sumber/nama pencipta asli)."
+            },
+            {
+                id: "pre-19",
+                question: "Tahapan mengeksplorasi ide visual lewat sketsa kasar berukuran kecil di atas kertas dinamakan...",
+                options: ["Final Artwork", "Thumbnail Sketches", "Moodboard", "Vectorizing"],
+                correct: 1,
+                explanation: "Thumbnail sketches berguna untuk mengeksplorasi komposisi tata letak alternatif secara cepat sebelum draf akhir terpilih."
+            },
+            {
+                id: "pre-20",
+                question: "Teknologi pembuatan plat cetak offset modern langsung dari berkas komputer tanpa film negatif dinamakan...",
+                options: ["CTP (Computer-to-Plate)", "CTS (Computer-to-Screen)", "Digital Plotting", "Thermal Printing"],
+                correct: 0,
+                explanation: "Computer-to-Plate (CTP) merekam berkas gambar digital langsung ke plat seng peka cahaya menggunakan tembakan laser presisi tinggi."
             }
+        ];
 
-            // Generate 25 Posttest Questions (Komprehensif Fase E DKV)
-            const posttestData = [
-                {
-                    q: "Manakah yang merupakan wujud penerapan prinsip Seiri (Ringkas) di dalam studio desain komputer?",
-                    o: ["Menyapu seluruh lantai studio hingga bersih berkilau", "Menghapus draf-draf revisi lawas tidak terpakai agar memori server komputer tetap lowong", "Menyusun laci arsip berkas secara alfabetis", "Mengkalibrasi profil pencahayaan warna monitor secara berkala"],
-                    c: 1,
-                    e: "Seiri (Ringkas) berfokus pada memisahkan barang/file yang masih diperlukan dengan yang tidak berguna, lalu mengeliminasi sisa pemborosan tersebut."
-                },
-                {
-                    q: "Apa perbedaan paling mendasar antara proses pencetakan mesin Offset dengan Digital Printing?",
-                    o: ["Offset menggunakan toner bubuk kering, sedangkan digital menggunakan pelat peka cahaya seng", "Offset menggunakan pelat acuan fisik (CTP) untuk pencetakan massal, sedangkan digital mencetak langsung dari data komputer tanpa plat (plateless)", "Offset tidak memerlukan tinta berbasis minyak", "Offset hanya bisa mencetak pada media kain sutera saja"],
-                    c: 1,
-                    e: "Mesin Offset memerlukan persiapan cetak pembuatan plat seng fisik lewat CTP, sedangkan mesin cetak digital bekerja langsung mencetak dari komputer ke kertas."
-                },
-                {
-                    q: "Mengapa proses kalibrasi monitor desainer secara berkala wajib dimasukkan dalam standar Seiketsu (Rawat)?",
-                    o: ["Agar monitor tidak berdebu", "Agar warna visual yang terlihat pada layar memiliki kemiripan tinggi dengan hasil cetak fisik kelak", "Agar konsumsi daya listrik komputer menjadi lebih hemat", "Agar sistem operasi komputer terhindar dari serangan virus digital"],
-                    c: 1,
-                    e: "Kalibrasi monitor secara konstan menjaga standarisasi kualitas rona warna (Seiketsu) agar desainer terhindar dari kesalahan salah cetak."
-                },
-                {
-                    q: "Gejala cacat hasil cetakan di mana terdapat bayangan gambar pudar pada area raster solid disebut...",
-                    o: ["Misregister warna bergeser", "Ghosting rona memudar", "Scumming plat kotor", "Creasing kertas melipat"],
-                    c: 1,
-                    e: "Ghosting adalah kendala cetak offset akibat pasokan suplai tinta dari bak utama tidak merata pada rol karet penyalur warna cetakan."
-                },
-                {
-                    q: "Sikap tanggung jawab moral utama seorang desainer grafis profesional terkait penggunaan aset digital adalah...",
-                    o: ["Bebas mengunduh font komersial bajakan secara gratis", "Menggunakan gambar milik orang lain dari internet tanpa izin demi kepuasan klien", "Memastikan semua font, foto, dan ilustrasi yang digunakan memiliki lisensi hak cipta komersial yang legal", "Mengabaikan orisinalitas karya demi mengejar penyelesaian deadline yang cepat"],
-                    c: 2,
-                    e: "Integritas moral desainer diukur dari kedisiplinan dan tanggung jawab menghormati hak kekayaan intelektual (HKI) serta lisensi hukum aset gambar komersial."
-                }
-            ];
-
-            // Populate Posttest
-            for (let i = 0; i < 25; i++) {
-                const base = posttestData[i % posttestData.length];
-                SOAL_POSTTEST.push({
-                    id: `post-${i + 1}`,
-                    question: `[Posttest Q${i + 1}] ${base.q}`,
-                    options: base.o,
-                    correct: base.c,
-                    explanation: base.e
-                });
+        const SOAL_POSTTEST = [
+            {
+                id: "post-1",
+                question: "Manakah tindakan konkrit penerapan prinsip 'Seiri' (Ringkas) dalam pengelolaan server data desainer?",
+                options: [
+                    "Menghapus draf file revisi lawas tidak terpakai agar ruang penyimpanan tetap bersih dan lowong", 
+                    "Mengurutkan file folder berdasarkan nama alfabetis klien", 
+                    "Melakukan backup seluruh file ke harddisk eksternal tanpa disortir", 
+                    "Mengubah latar belakang monitor menjadi warna netral abu-abu"
+                ],
+                correct: 0,
+                explanation: "Prinsip Seiri (Ringkas) adalah memisahkan barang/file yang masih diperlukan dengan yang tidak berguna, lalu mengeliminasi sisa pemborosan tersebut."
+            },
+            {
+                id: "post-2",
+                question: "Apakah perbedaan mekanis paling fundamental antara mesin cetak Offset Lithography dengan Digital Printing?",
+                options: [
+                    "Offset menggunakan toner bubuk kering, sedangkan digital menggunakan tinta pasta", 
+                    "Offset memerlukan plat cetak fisik (seng) sebagai perantara gambar, sedangkan digital mencetak langsung tanpa perantara plat (plateless)", 
+                    "Offset hanya bisa mencetak hitam putih saja", 
+                    "Digital printing membutuhkan waktu persiapan mesin (set-up) lebih lama"
+                ],
+                correct: 1,
+                explanation: "Mesin Offset memerlukan persiapan cetak pembuatan plat seng fisik lewat CTP, sedangkan mesin cetak digital bekerja langsung mentransfer file gambar digital ke kertas."
+            },
+            {
+                id: "post-3",
+                question: "Manakah tindakan di bawah ini yang paling mencerminkan prinsip 'Seiketsu' (Rawat) dalam menjaga kualitas warna kerja?",
+                options: [
+                    "Menyapu meja kerja komputer setiap pagi", 
+                    "Melakukan kalibrasi profil warna monitor secara berkala agar rona layar sesuai standar rona hasil cetak komersial", 
+                    "Membeli monitor berukuran besar", 
+                    "Menaruh tanaman hias di samping monitor"
+                ],
+                correct: 1,
+                explanation: "Seiketsu (Rawat) berfokus pada standarisasi dan pemeliharaan hasil kebersihan serta prosedur teknis kerja yang konsisten."
+            },
+            {
+                id: "post-4",
+                question: "Kendala cetak berupa bayangan gambar tipis tak diinginkan akibat asupan debit tinta tidak konstan dinamakan...",
+                options: ["Ghosting", "Creasing", "Misregister", "Smearing"],
+                correct: 0,
+                explanation: "Ghosting adalah cacat cetak offset berupa bayangan pudar karena pasokan asupan tinta tipis dari bak tinta utama tidak konstan menyelimuti rol karet."
+            },
+            {
+                id: "post-5",
+                question: "Sikap tanggung jawab moral desainer terhadap hak kekayaan intelektual (HKI) tercermin dari...",
+                options: [
+                    "Memakai font komersial bajakan secara gratis", 
+                    "Memastikan semua font, foto, dan aset grafis yang digunakan berlisensi komersial legal", 
+                    "Mengubah bentuk logo brand orang lain sedikit saja lalu mengklaimnya", 
+                    "Menyalin karya desainer lain dari Pinterest tanpa izin"
+                ],
+                correct: 1,
+                explanation: "Integritas moral desainer diukur dari kedisiplinan dan tanggung jawab menghormati hak kekayaan intelektual (HKI) serta lisensi hukum aset gambar komersial."
+            },
+            {
+                id: "post-6",
+                question: "Dalam metodologi Design Thinking, tahapan setelah mendefinisikan inti permasalahan klien (Define) adalah...",
+                options: ["Empathize", "Ideate (Brainstorming)", "Prototype", "Test"],
+                correct: 1,
+                explanation: "Setelah Define merumuskan masalah utama, tim kreatif beralih ke tahapan Ideate untuk menghasilkan gagasan solusi sebanyak mungkin."
+            },
+            {
+                id: "post-7",
+                question: "Bagaimanakah penataan kabel lab komputer yang aman untuk meminimalkan potensi bahaya fisik?",
+                options: [
+                    "Dibiarkan berantakan di lantai agar mudah ditarik", 
+                    "Dirapikan menggunakan pelindung kabel (cable duct) agar tidak membuat orang tersandung atau memicu korsleting", 
+                    "Ditempel di bawah karpet tebal", 
+                    "Digabung dengan pipa saluran air"
+                ],
+                correct: 1,
+                explanation: "Kabel yang dirapikan dalam pelindung (cable duct) melindungi kabel dari benturan fisik dan mencegah risiko korsleting listrik."
+            },
+            {
+                id: "post-8",
+                question: "Mengapa gudang penyimpanan kertas plano cetak offset harus dijaga kelembabannya?",
+                options: [
+                    "Agar kertas tidak dimakan rayap", 
+                    "Mencegah kertas melengkung atau lembab yang dapat memicu selip di penyuap feeder mesin", 
+                    "Agar tinta cetak cepat meresap", 
+                    "Agar kertas menjadi lebih wangi"
+                ],
+                correct: 1,
+                explanation: "Kertas plano peka terhadap fluktuasi kelembaban. Kertas yang lembab akan mengembang dan memicu kemacetan (paper jam) pada feeder unit."
+            },
+            {
+                id: "post-9",
+                question: "Apa akibat fatal yang terjadi jika register warna pada cetak offset bergeser (misregister)?",
+                options: [
+                    "Mesin cetak langsung meledak", 
+                    "Hasil gambar cetakan tampak blur, tidak fokus, dan rona warna tidak akurat", 
+                    "Tinta cetak tidak mau menempel", 
+                    "Kertas plano hancur tercabik"
+                ],
+                correct: 1,
+                explanation: "Tumpukan warna CMYK harus berada di titik koordinat yang presisi. Pergeseran sekecil apa pun akan membuat detail raster gambar berbayang (blur)."
+            },
+            {
+                id: "post-10",
+                question: "Profesi desainer yang khusus merancang visual struktur navigasi keindahan aplikasi digital dinamakan...",
+                options: ["UI/UX Designer", "Animator", "3D Generalist", "Brand Consultant"],
+                correct: 0,
+                explanation: "User Interface (UI) dan User Experience (UX) designer berfokus merancang kegunaan, kenyamanan, serta keindahan visual antarmuka platform digital."
+            },
+            {
+                id: "post-11",
+                question: "Bahaya fisik akibat intensitas kebisingan suara tinggi mesin cetak dapat dicegah operator dengan menggunakan...",
+                options: ["Kacamata Safety", "Respirator", "Earplug / Earmuff (Pelindung Telinga)", "Sarung Tangan Nitril"],
+                correct: 2,
+                explanation: "Earplug atau earmuff berfungsi meredam kebisingan tinggi ruang produksi untuk melindungi indra pendengaran dari risiko tuli sensorik."
+            },
+            {
+                id: "post-12",
+                question: "Jenis pelarut kimia volatile yang sering digunakan untuk membersihkan residu tinta kering pada rol offset adalah...",
+                options: ["Cairan Benzena / Solvent khusus", "Air keran biasa", "Minyak goreng", "Cuka makan"],
+                correct: 0,
+                explanation: "Bahan kimia pelarut berbasis solvent digunakan karena sifatnya yang cepat melarutkan pigmen minyak tinta cetak tanpa merusak struktur rol karet."
+            },
+            {
+                id: "post-13",
+                question: "Apa pengertian dari konsep 'Nirmana' sebagai fondasi kompetensi DKV?",
+                options: [
+                    "Teknik mengoperasikan kamera DSLR", 
+                    "Pengorganisasian elemen-elemen rupa (titik, garis, bidang, warna) menjadi satu kesatuan komposisi estetis", 
+                    "Metode negosiasi harga proyek desain dengan klien", 
+                    "Proses mencetak plat alumunium seng"
+                ],
+                correct: 1,
+                explanation: "Nirmana merupakan dasar ilmu tata rupa yang melatih kepekaan estetik dalam menyusun elemen visual secara harmonis."
+            },
+            {
+                id: "post-14",
+                question: "Dokumen legal yang melindungi rahasia desain konsep branding klien sebelum produk resmi diluncurkan dinamakan...",
+                options: ["Creative Brief", "Non-Disclosure Agreement (NDA)", "Purchase Order", "Copyright Certificate"],
+                correct: 1,
+                explanation: "NDA adalah perjanjian kerahasiaan hukum untuk melindungi hak kepemilikan data internal yang sensitif milik klien dari kebocoran ke publik."
+            },
+            {
+                id: "post-15",
+                question: "Teknik cetak tinggi (Flexography) umumnya digunakan dalam industri DKV untuk mencetak...",
+                options: ["Buku tebal berseri", "Kemasan kardus fleksibel / plastik kemas produk masal", "Sertifikat satuan", "Foto potret beresolusi tinggi"],
+                correct: 1,
+                explanation: "Flexography menggunakan plat karet fleksibel berpola timbul, ideal untuk media bergelombang seperti kardus atau kemasan plastik tipis."
+            },
+            {
+                id: "post-16",
+                question: "Manakah tindakan preventif pencegahan bahaya ergonomi saat harus menggambar berjam-jam di depan komputer?",
+                options: [
+                    "Minum suplemen penambah energi dosis tinggi", 
+                    "Menggunakan kursi ergonomis dengan lumbar support yang menopang tulang lumbar belakang dengan benar", 
+                    "Mematikan pencahayaan ruang kamar", 
+                    "Menekuk pergelangan tangan sekencang mungkin"
+                ],
+                correct: 1,
+                explanation: "Lumbar support membantu menjaga kelengkungan alami tulang belakang sehingga meminimalkan risiko cedera nyeri punggung kronis (LBP)."
+            },
+            {
+                id: "post-17",
+                question: "Menurut standar regulasi, batas maksimal kebisingan di ruang kerja tanpa alat pelindung pendengaran selama 8 jam kerja per hari adalah...",
+                options: ["45 dBA", "65 dBA", "85 dBA", "110 dBA"],
+                correct: 2,
+                explanation: "Nilai Ambang Batas (NAB) kebisingan di lingkungan kerja adalah 85 desibel (dBA) untuk durasi kerja terus menerus 8 jam per hari."
+            },
+            {
+                id: "post-18",
+                question: "Berapakah ukuran bleed standar yang direkomendasikan desainer saat merancang pamflet siap cetak?",
+                options: ["0.1 mm - 0.2 mm", "2 mm - 3 mm", "15 mm - 20 mm", "50 mm"],
+                correct: 1,
+                explanation: "Bleed berkisar antara 2 sampai 3 milimeter sudah cukup aman untuk mengantisipasi toleransi pisau mesin potong kertas."
+            },
+            {
+                id: "post-19",
+                question: "Bagaimanakah alur proses perekaman plat CTP (Computer-to-Plate) yang benar?",
+                options: [
+                    "Menggambar plat menggunakan spidol hitam secara manual", 
+                    "Berkas file digital diproses oleh raster image processor (RIP) lalu direkam laser langsung ke atas plat logam alumunium", 
+                    "Mencetak file menggunakan printer inkjet di atas seng", 
+                    "Menggunakan teknik fotokopi plat seng"
+                ],
+                correct: 1,
+                explanation: "Proses CTP mengubah file gambar vektor digital menjadi pola raster piksel yang dibakar laser secara presisi ke plat seng offset."
+            },
+            {
+                id: "post-20",
+                question: "Manakah soft skill utama yang harus dibudayakan desainer DKV dalam menghadapi keluhan revisi klien?",
+                options: [
+                    "Mudah tersinggung dan langsung membela diri", 
+                    "Kemampuan mendengarkan aktif secara empati untuk mendiagnosis kendala komunikasi visual draf desain", 
+                    "Menolak melakukan revisi jika pembayaran belum lunas", 
+                    "Memasrahkan seluruh pengerjaan draf revisi ke desainer junior"
+                ],
+                correct: 1,
+                explanation: "Mendengarkan secara aktif membantu desainer menganalisis feedback objektif klien untuk memformulasikan solusi estetik yang tepat."
+            },
+            {
+                id: "post-21",
+                question: "Mengapa sisa buangan plat alumunium bekas dan potongan sisa kertas harus dipisah dalam kotak sampah daur ulang?",
+                options: [
+                    "Agar tidak merusak keindahan lab komputer", 
+                    "Merupakan implementasi Seiri (Ringkas) untuk mengurangi penumpukan limbah padat produksi dan mempermudah pemrosesan daur ulang", 
+                    "Agar sisa kertas bisa dimakan kembali oleh operator", 
+                    "Sengaja disimpan untuk hiasan dinding"
+                ],
+                correct: 1,
+                explanation: "Pemisahan sampah organik, kertas, dan logam sisa produksi membantu melestarikan ekosistem lingkungan hidup industri (K3LH)."
+            },
+            {
+                id: "post-22",
+                question: "Tindakan pertama tanggap darurat yang paling tepat ketika muncul kepulan asap hitam dari sirkuit PC desainer adalah...",
+                options: [
+                    "Menyiram sirkuit komputer tersebut dengan seember air langsung", 
+                    "Memutus saklar MCB sekering utama lab kelistrikan komputer dan menggunakan APAR jenis CO2 / Powder", 
+                    "Berteriak histeris dan langsung lari keluar gedung sendirian", 
+                    "Mendiamkannya sampai api padam dengan sendirinya"
+                ],
+                correct: 1,
+                explanation: "Memutus daya listrik mencegah rambatan korsleting. Alat Pemadam Api Ringan (APAR) jenis CO2 aman untuk kebakaran sirkuit elektronik karena tidak meninggalkan residu basah konduktif."
+            },
+            {
+                id: "post-23",
+                question: "Apa tujuan dilakukannya proses 'Proofing' warna sebelum melakukan cetak massal ribuan eksemplar?",
+                options: [
+                    "Agar mesin cetak tidak cepat aus", 
+                    "Sebagai validasi kesesuaian keakuratan rona warna antara keinginan klien dengan kemampuan cetak mesin", 
+                    "Untuk menentukan ukuran ketebalan kertas", 
+                    "Mempercepat jalannya dinamo motor mesin"
+                ],
+                correct: 1,
+                explanation: "Proofing cetak (cetak uji coba) menghindari kerugian finansial akibat kesalahan cetak warna massal yang tidak disetujui klien."
+            },
+            {
+                id: "post-24",
+                question: "Wujud kedisiplinan prinsip 'Shitsuke' (Rajin) yang ideal bagi seorang desainer grafis adalah...",
+                options: [
+                    "Mengerjakan draf revisi sesuka hati di waktu luang", 
+                    "Membiasakan diri menjaga kebersihan meja gambar secara konsisten tanpa perlu diperintah supervisor", 
+                    "Meninggalkan lab komputer dalam keadaan menyala semalaman", 
+                    "Membuat duplikasi data portofolio milik desainer senior"
+                ],
+                correct: 1,
+                explanation: "Shitsuke (Rajin) adalah pilar pembentukan kebiasaan positif pribadi yang disiplin mematuhi standar kerja yang bersih secara mandiri."
+            },
+            {
+                id: "post-25",
+                question: "Keunggulan cetak sablon konvensional (Screen Printing) dibanding cetak digital (Digital Printing) pada kaos kain adalah...",
+                options: [
+                    "Waktu pengerjaan cetak sablon jauh lebih cepat", 
+                    "Tingkat ketebalan noda tinta lebih pekat dan daya tahan luntur cuci di media kain jauh lebih awet", 
+                    "Cetak sablon sangat murah untuk mencetak gambar satuan ber-gradasi kompleks", 
+                    "Tidak memerlukan peralatan fisik apa pun"
+                ],
+                correct: 1,
+                explanation: "Sablon manual mengalirkan tinta plastisol cair tebal melewati pori kain kasa screen, menghasilkan kepadatan pigmen warna solid yang sangat awet."
             }
-        }
-        generateQuestionBank();
+        ];
 
 
         /* ==================== 4. LOGIKA INTEGRASI UTAMA APLIKASI ==================== */
